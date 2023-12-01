@@ -6,3 +6,26 @@
 body {
   background-color: salmon;
 }
+
+/* styles.css */
+.container {
+  width: 500px;
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; */
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  width: 100px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+}
