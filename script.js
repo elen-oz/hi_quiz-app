@@ -12,12 +12,17 @@ async function getQuestion() {
   let data = await response.json();
 
   questions = data.results;
+  console.log(questions);
 
   renderQuestion(questions[currentQuestion]);
 }
 
 function renderQuestion(question) {
   containerEl.innerHTML = '';
+  let numberOfQuestions = document.createElement('h2');
+  numberOfQuestions.textContent = `${currentQuestion + 1} / 10`;
+  containerEl.append(numberOfQuestions);
+
   let correctAnswer = question.correct_answer;
 
   let questionEl = document.createElement('div');
