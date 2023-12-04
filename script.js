@@ -1,6 +1,7 @@
 'use strict';
 
 let questions;
+let questionsNumber = 10;
 let currentQuestion = 0;
 let rightAnswers = 0;
 
@@ -16,8 +17,8 @@ startAgainBtnEl.classList.add('button', 'button--again');
 startAgainBtnEl.textContent = 'Start';
 containerEl.prepend(startAgainBtnEl);
 
-let numberOfQuestions = document.createElement('h2');
-numberOfQuestions.classList.add('questions-number');
+let questionsNumberEl = document.createElement('h2');
+questionsNumberEl.classList.add('questions-number');
 let questionEl = document.createElement('div');
 questionEl.classList.add('question');
 containerEl.append(questionEl);
@@ -29,7 +30,7 @@ resultEl.classList.add('result');
 containerEl.append(resultEl);
 
 async function getQuestion() {
-  let url = 'https://opentdb.com/api.php?amount=10&type=multiple';
+  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&type=multiple`;
   let response = await fetch(url);
   let data = await response.json();
 
@@ -41,12 +42,12 @@ async function getQuestion() {
 
 function renderQuestion(question) {
   buttonContainerEl.innerHTML = '';
-  numberOfQuestions.innerHTML = '';
+  questionsNumberEl.innerHTML = '';
 
   startAgainBtnEl.textContent = 'Start Again';
 
-  numberOfQuestions.textContent = `${currentQuestion + 1} / 10`;
-  containerEl.prepend(numberOfQuestions);
+  questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
+  containerEl.prepend(questionsNumberEl);
 
   questionEl.innerHTML = question.question;
 
@@ -77,7 +78,7 @@ function renderQuestion(question) {
       } else {
         resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
 
-        numberOfQuestions.innerHTML = 'FINISH';
+        questionsNumberEl.innerHTML = 'FINISH';
         questionEl.innerHTML = '';
         buttonContainerEl.innerHTML = '';
       }
@@ -94,5 +95,3 @@ startAgainBtnEl.addEventListener('click', () => {
 
   getQuestion();
 });
-
-// getQuestion();
