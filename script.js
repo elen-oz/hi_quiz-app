@@ -1,36 +1,49 @@
 'use strict';
 
+const initialState = {
+  questions: [],
+  questionsNumber: 10,
+  currentQuestion: 0,
+  rightAnswers: 0,
+  emptyLine: '',
+};
+
 let questions;
-let questionsNumber = 10;
-let currentQuestion = 0;
-let rightAnswers = 0;
+let questionsNumber = initialState.questionsNumber;
+let currentQuestion = initialState.currentQuestion;
+let rightAnswers = initialState.rightAnswers;
+
+const createElement = (tag, classNames, textContent) => {
+  const element = document.createElement(tag);
+  element.classList.add(...classNames.split(' '));
+  element.textContent = textContent !== undefined ? textContent : '';
+  return element;
+};
+
+const containerEl = createElement('div', 'container');
+containerEl.setAttribute('id', 'container');
+
+const startAgainBtnEl = createElement(
+  'button',
+  'button button--again',
+  'Start Quiz'
+);
+
+const questionsNumberEl = createElement('h2', 'questions-number');
+const questionEl = createElement('div', 'question');
+const buttonContainerEl = createElement('div', 'button-container');
+const resultEl = createElement('div', 'result');
+
+containerEl.append(
+  startAgainBtnEl,
+  questionsNumberEl,
+  questionEl,
+  buttonContainerEl,
+  resultEl
+);
 
 let appEl = document.querySelector('#app');
-
-let containerEl = document.createElement('div');
-containerEl.setAttribute('id', 'container');
-containerEl.classList.add('container');
 appEl.append(containerEl);
-
-let startAgainBtnEl = document.createElement('button');
-startAgainBtnEl.classList.add('button', 'button--again');
-startAgainBtnEl.textContent = 'Start';
-containerEl.prepend(startAgainBtnEl);
-
-let questionsNumberEl = document.createElement('h2');
-questionsNumberEl.classList.add('questions-number');
-
-let questionEl = document.createElement('div');
-questionEl.classList.add('question');
-containerEl.append(questionEl);
-
-let buttonContainerEl = document.createElement('div');
-buttonContainerEl.classList.add('button-container');
-containerEl.append(buttonContainerEl);
-
-let resultEl = document.createElement('div');
-resultEl.classList.add('result');
-containerEl.append(resultEl);
 
 async function getQuestion() {
   let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&type=multiple`;
@@ -89,9 +102,9 @@ function renderQuestion(question) {
 }
 
 startAgainBtnEl.addEventListener('click', () => {
-  currentQuestion = 0;
-  rightAnswers = 0;
-  resultEl.textContent = '';
+  currentQuestion = initialState.currentQuestion;
+  rightAnswers = initialState.rightAnswers;
+  resultEl.textContent = initialState.emptyLine;
 
   getQuestion();
 });
