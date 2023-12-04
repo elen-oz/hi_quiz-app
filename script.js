@@ -12,7 +12,9 @@ containerEl.classList.add('container');
 appEl.append(containerEl);
 
 let numberOfQuestions = document.createElement('h2');
+numberOfQuestions.classList.add('questions-number');
 let questionEl = document.createElement('div');
+questionEl.classList.add('question');
 let buttonContainerEl = document.createElement('div');
 buttonContainerEl.classList.add('button-container');
 containerEl.append(buttonContainerEl);
