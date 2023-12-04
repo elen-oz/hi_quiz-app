@@ -1,47 +1,58 @@
 'use strict';
 
-// Declare variables to store quiz data and state.
 let questions;
+let techQuestions;
 let questionsNumber = 10;
 let currentQuestion = 0;
 let rightAnswers = 0;
 
-// Find the HTML element with the ID 'app' to use it in the script.
+const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
+// const apiTags = {
+//   HTML: HTML,
+//   JavaScript: JavaScript,
+// };
+
+// https://quizapi.io/api/v1/questions?apiKey=Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980&tags=JavaScript
+
 let appEl = document.querySelector('#app');
 
-// Create a new 'div' element for the container and add it to the 'app' element.
 let containerEl = document.createElement('div');
 containerEl.setAttribute('id', 'container');
 containerEl.classList.add('container');
 appEl.append(containerEl);
 
-// Create a button to start the quiz again and add it to the container.
 let startAgainBtnEl = document.createElement('button');
 startAgainBtnEl.classList.add('button', 'button--again');
 startAgainBtnEl.textContent = 'Start';
 containerEl.prepend(startAgainBtnEl);
 
-// Create elements to display the number of questions
 let questionsNumberEl = document.createElement('h2');
 questionsNumberEl.classList.add('questions-number');
 
-// Create elements to display the question itself
 let questionEl = document.createElement('div');
 questionEl.classList.add('question');
 containerEl.append(questionEl);
 
-// Create elements to display container where buttons for answers will be appear
 let buttonContainerEl = document.createElement('div');
 buttonContainerEl.classList.add('button-container');
 containerEl.append(buttonContainerEl);
 
-// Create elements to display the result.
 let resultEl = document.createElement('div');
 resultEl.classList.add('result');
 containerEl.append(resultEl);
 
-// questions from an API and display the first question.
-async function getQuestion() {
+async function getTechQuestions() {
+  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=JavaScript&limit=${questionsNumber}`;
+  let response = await fetch(url);
+  let data = await response.json();
+
+  techQuestions = data;
+  console.log(techQuestions);
+
+  renderTechQuestion(techQuestions[currentQuestion]);
+}
+
+async function getGeneralQuestions() {
   let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&type=multiple`;
   let response = await fetch(url);
   let data = await response.json();
@@ -49,28 +60,22 @@ async function getQuestion() {
   questions = data.results;
   console.log(questions);
 
-  renderQuestion(questions[currentQuestion]);
+  renderGeneralQuestion(questions[currentQuestion]);
 }
 
-// displays a question and its answers.
-function renderQuestion(question) {
+function renderGeneralQuestion(question) {
   buttonContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
   startAgainBtnEl.textContent = 'Start Again';
-
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   containerEl.prepend(questionsNumberEl);
-
   questionEl.innerHTML = question.question;
 
   let correctAnswer = question.correct_answer;
-  console.log('---hint: ', correctAnswer);
-
   let answers = question.incorrect_answers.concat([question.correct_answer]);
   answers = answers.sort(() => 0.5 - Math.random());
 
-  // Create buttons for each answer and add a click event to check the answer.
   for (let i = 0; i < answers.length; i++) {
     let answer = answers[i];
     let answerEl = document.createElement('button');
@@ -79,7 +84,6 @@ function renderQuestion(question) {
     answerEl.addEventListener('click', function () {
       let currentAnswer = answerEl.innerHTML;
 
-      // Go to the next question or end the quiz if all questions are answered.
       if (currentAnswer === correctAnswer) {
         rightAnswers += 1;
         console.log('! Right Answers: ' + rightAnswers);
@@ -90,13 +94,12 @@ function renderQuestion(question) {
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
-        renderQuestion(questions[currentQuestion]);
+        renderGeneralQuestion(questions[currentQuestion]);
       } else {
         resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
 
         questionsNumberEl.innerHTML = 'FINISH';
 
-        // remove unnecessary fields
         questionEl.innerHTML = '';
         buttonContainerEl.innerHTML = '';
       }
@@ -106,11 +109,55 @@ function renderQuestion(question) {
   }
 }
 
-// Add a click event to the 'start again' button to reset the quiz and fetch new questions.
+function renderTechQuestion(question) {
+  buttonContainerEl.innerHTML = '';
+  questionsNumberEl.innerHTML = '';
+
+  startAgainBtnEl.textContent = 'Start Again';
+  questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
+  containerEl.prepend(questionsNumberEl);
+  questionEl.textContent = question.question;
+
+  let answers = question.answers;
+  let correctAnswers = question.correct_answers;
+
+  Object.keys(answers).forEach((key) => {
+    if (answers[key] !== null) {
+      let answerEl = document.createElement('button');
+      answerEl.textContent = answers[key];
+      answerEl.classList.add('button');
+
+      answerEl.addEventListener('click', function () {
+        let isCorrect = correctAnswers[key + '_correct'] === 'true';
+
+        if (isCorrect) {
+          rightAnswers += 1;
+          console.log('=> Correct!');
+        } else {
+          console.log('=> Not correct');
+        }
+
+        if (currentQuestion < techQuestions.length - 1) {
+          currentQuestion += 1;
+          renderTechQuestion(techQuestions[currentQuestion]);
+        } else {
+          resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
+          questionsNumberEl.textContent = 'FINISH';
+          questionEl.textContent = '';
+          buttonContainerEl.textContent = '';
+        }
+      });
+
+      buttonContainerEl.append(answerEl);
+    }
+  });
+}
+
 startAgainBtnEl.addEventListener('click', () => {
   currentQuestion = 0;
   rightAnswers = 0;
   resultEl.textContent = '';
 
-  getQuestion();
+  //   getGeneralQuestions();
+  getTechQuestions();
 });
