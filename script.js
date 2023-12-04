@@ -76,8 +76,7 @@ function renderGeneralQuestion(question) {
   let answers = question.incorrect_answers.concat([question.correct_answer]);
   answers = answers.sort(() => 0.5 - Math.random());
 
-  for (let i = 0; i < answers.length; i++) {
-    let answer = answers[i];
+  answers.forEach((answer) => {
     let answerEl = document.createElement('button');
     answerEl.innerHTML = answer;
     answerEl.classList.add('button');
@@ -106,7 +105,7 @@ function renderGeneralQuestion(question) {
     });
 
     buttonContainerEl.append(answerEl);
-  }
+  });
 }
 
 function renderTechQuestion(question) {
