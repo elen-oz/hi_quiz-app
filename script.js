@@ -6,6 +6,7 @@ const initialState = {
   startQuestion: 0,
   rightAnswers: 0,
   emptyLine: '',
+  message: `Good luck! 🍀`,
 };
 
 let questions;
@@ -16,7 +17,9 @@ let rightAnswers = initialState.rightAnswers;
 
 const createElement = (tag, classNames, textContent) => {
   const element = document.createElement(tag);
-  element.classList.add(...classNames.split(' '));
+  if (classNames) {
+    element.classList.add(...classNames.split(' '));
+  }
   element.textContent = textContent !== undefined ? textContent : '';
   return element;
 };
@@ -33,14 +36,14 @@ const startAgainBtnEl = createElement(
 const questionsNumberEl = createElement('h2', 'questions-number');
 const questionEl = createElement('div', 'question');
 const buttonContainerEl = createElement('div', 'button-container');
-const resultEl = createElement('div', 'result');
+const messageEl = createElement('div', 'message');
+messageEl.textContent = `Good luck! 🍀`;
 
 containerEl.append(
   startAgainBtnEl,
   questionsNumberEl,
   questionEl,
-  buttonContainerEl,
-  resultEl
+  buttonContainerEl
 );
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -53,6 +56,7 @@ const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
 let appEl = document.querySelector('#app');
 appEl.append(containerEl);
+appEl.append(messageEl);
 
 async function getTechQuestions() {
   let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=JavaScript&limit=${questionsNumber}`;
@@ -92,13 +96,19 @@ function renderGeneralQuestion(question) {
     const answerEl = createElement('button', 'button', answer);
 
     answerEl.addEventListener('click', function () {
-      initialState.rightAnswers += answer === correctAnswer ? 1 : 0;
+      if (correctAnswer) {
+        initialState.rightAnswers += 1;
+        messageEl.textContent = `Correct! 🤜🤛`;
+      } else {
+        messageEl.textContent = `Nope 🦧`;
+      }
+      //   initialState.rightAnswers += answer === correctAnswer ? 1 : 0;
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
         renderGeneralQuestion(questions[currentQuestion]);
       } else {
-        resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
+        messageEl.textContent = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
         questionsNumberEl.innerHTML = 'FINISH';
 
         questionEl.innerHTML = '';
@@ -133,16 +143,16 @@ function renderTechQuestion(question) {
 
         if (isCorrect) {
           rightAnswers += 1;
-          console.log('=> Correct!');
+          messageEl.textContent = `Correct! 🤜🤛`;
         } else {
-          console.log('=> Not correct');
+          messageEl.textContent = `Nope 🦧`;
         }
 
         if (currentQuestion < techQuestions.length - 1) {
           currentQuestion += 1;
           renderTechQuestion(techQuestions[currentQuestion]);
         } else {
-          resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
+          messageEl.innerHTML = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
           questionsNumberEl.textContent = 'FINISH';
           questionEl.textContent = '';
           buttonContainerEl.textContent = '';
@@ -157,7 +167,7 @@ function renderTechQuestion(question) {
 startAgainBtnEl.addEventListener('click', () => {
   currentQuestion = initialState.startQuestion;
   rightAnswers = initialState.rightAnswers;
-  resultEl.textContent = initialState.emptyLine;
+  messageEl.textContent = initialState.message;
 
   //   getGeneralQuestions();
   getTechQuestions();
