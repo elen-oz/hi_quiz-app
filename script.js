@@ -3,14 +3,14 @@
 const initialState = {
   questions: [],
   questionsNumber: 10,
-  currentQuestion: 0,
+  startQuestion: 0,
   rightAnswers: 0,
   emptyLine: '',
 };
 
 let questions;
 let questionsNumber = initialState.questionsNumber;
-let currentQuestion = initialState.currentQuestion;
+let currentQuestion = initialState.startQuestion;
 let rightAnswers = initialState.rightAnswers;
 
 const createElement = (tag, classNames, textContent) => {
@@ -58,11 +58,10 @@ async function getQuestion() {
 
 function renderQuestion(question) {
   buttonContainerEl.innerHTML = '';
-  questionsNumberEl.innerHTML = '';
 
-  startAgainBtnEl.textContent = 'Start Again';
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   containerEl.prepend(questionsNumberEl);
+  startAgainBtnEl.textContent = 'Start Again';
   questionEl.innerHTML = question.question;
 
   let correctAnswer = question.correct_answer;
@@ -70,26 +69,16 @@ function renderQuestion(question) {
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
-    let answerEl = document.createElement('button');
-    answerEl.innerHTML = answer;
-    answerEl.classList.add('button');
-    answerEl.addEventListener('click', function () {
-      let currentAnswer = answerEl.innerHTML;
+    const answerEl = createElement('button', 'button', answer);
 
-      if (currentAnswer === correctAnswer) {
-        rightAnswers += 1;
-        console.log('! Right Answers: ' + rightAnswers);
-        console.log('=> Correct!');
-      } else {
-        console.log('=> Not correct');
-      }
+    answerEl.addEventListener('click', function () {
+      initialState.rightAnswers += answer === correctAnswer ? 1 : 0;
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
         renderQuestion(questions[currentQuestion]);
       } else {
         resultEl.textContent = `Quiz completed. Total right answers: ${rightAnswers}`;
-
         questionsNumberEl.innerHTML = 'FINISH';
 
         questionEl.innerHTML = '';
@@ -102,7 +91,7 @@ function renderQuestion(question) {
 }
 
 startAgainBtnEl.addEventListener('click', () => {
-  currentQuestion = initialState.currentQuestion;
+  currentQuestion = initialState.startQuestion;
   rightAnswers = initialState.rightAnswers;
   resultEl.textContent = initialState.emptyLine;
 
