@@ -19,10 +19,15 @@ body {
 }
 
 .questions-number {
+  height: auto;
 }
 
 .question {
-  height: 70px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .button-container {
@@ -39,6 +44,13 @@ body {
   height: 70px;
   border: none;
   border-radius: 4px;
+}
+
+.button--again {
+  width: fit-content;
+  height: auto;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
 }
 
 .result {

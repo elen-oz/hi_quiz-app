@@ -11,10 +11,16 @@ containerEl.setAttribute('id', 'container');
 containerEl.classList.add('container');
 appEl.append(containerEl);
 
+let startAgainBtnEl = document.createElement('button');
+startAgainBtnEl.classList.add('button', 'button--again');
+startAgainBtnEl.textContent = 'Start';
+containerEl.prepend(startAgainBtnEl);
+
 let numberOfQuestions = document.createElement('h2');
 numberOfQuestions.classList.add('questions-number');
 let questionEl = document.createElement('div');
 questionEl.classList.add('question');
+containerEl.append(questionEl);
 let buttonContainerEl = document.createElement('div');
 buttonContainerEl.classList.add('button-container');
 containerEl.append(buttonContainerEl);
@@ -37,12 +43,12 @@ function renderQuestion(question) {
   buttonContainerEl.innerHTML = '';
   numberOfQuestions.innerHTML = '';
 
+  startAgainBtnEl.textContent = 'Start Again';
+
   numberOfQuestions.textContent = `${currentQuestion + 1} / 10`;
+  containerEl.prepend(numberOfQuestions);
 
   questionEl.innerHTML = question.question;
-  containerEl.prepend(questionEl);
-
-  containerEl.prepend(numberOfQuestions);
 
   let correctAnswer = question.correct_answer;
   console.log('---hint: ', correctAnswer);
@@ -81,4 +87,12 @@ function renderQuestion(question) {
   }
 }
 
-getQuestion();
+startAgainBtnEl.addEventListener('click', () => {
+  currentQuestion = 0;
+  rightAnswers = 0;
+  resultEl.textContent = '';
+
+  getQuestion();
+});
+
+// getQuestion();
