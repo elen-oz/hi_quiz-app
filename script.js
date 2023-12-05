@@ -1,5 +1,15 @@
 'use strict';
 
+// todo: 1) ability to pick difficulty
+// todo: 1.а) save to localStotrage
+
+// todo: 2) ability to chose amount of questions
+// todo: 2.а) save to localStotrage
+
+// todo: 3) remove START QUIZ btn, but leave "Start Again" & connect with localStorage
+
+// todo: 4) change layout to grid https://css-tricks.com/snippets/css/complete-guide-grid/
+
 const initialState = {
   questions: [],
   questionsNumber: 10,
@@ -27,39 +37,94 @@ const createElement = (tag, classNames, textContent) => {
 const containerEl = createElement('div', 'container');
 containerEl.setAttribute('id', 'container');
 
-const startAgainBtnEl = createElement(
+const containerNewGameBtnEl = createElement('div', 'container-newGameButtons');
+const generalBtnEl = createElement(
   'button',
-  'button button--again',
-  'Start Quiz'
+  'button button--topics',
+  'General Questions'
+);
+const techBtnEl = createElement(
+  'button',
+  'button button--topics',
+  'Tech Questions'
+);
+// * --------------- difficulty ------------------
+const containerDifficultyBtns = createElement('div', 'container-difficulty');
+const easyBtnEl = createElement(
+  'button',
+  'button button--difficulty',
+  'Easy Peasy'
+);
+const mediumBtnEl = createElement(
+  'button',
+  'button button--difficulty',
+  'Medium'
+);
+const hardBtnEl = createElement('button', 'button button--difficulty', 'Hard');
+
+// * ------------- tech topic ------------------
+const containerTechBtns = createElement('div', 'container-tech');
+const htmlBtnEl = createElement('button', 'button button-tech', 'HTML');
+const javascriptBtnEl = createElement(
+  'button',
+  'button button-tech',
+  'JavaScript'
 );
 
 const questionsNumberEl = createElement('h2', 'questions-number');
 const questionEl = createElement('div', 'question');
 const buttonContainerEl = createElement('div', 'button-container');
 const messageEl = createElement('div', 'message');
-messageEl.textContent = `Good luck! 🍀`;
+messageEl.innerHTML = `Welcome! ⭐️<br>🍬 Let's Start!`;
 
-containerEl.append(
-  startAgainBtnEl,
-  questionsNumberEl,
-  questionEl,
-  buttonContainerEl
-);
+// containerEl.append(startAgainBtnEl);
+containerEl.append(questionsNumberEl, questionEl, buttonContainerEl);
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
-// const apiTags = {
-//   HTML: HTML,
-//   JavaScript: JavaScript,
-// };
-
-// https://quizapi.io/api/v1/questions?apiKey=Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980&tags=JavaScript
 
 let appEl = document.querySelector('#app');
 appEl.append(containerEl);
 appEl.append(messageEl);
 
-async function getTechQuestions() {
-  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=JavaScript&limit=${questionsNumber}`;
+const getParamsNewGame = () => {
+  containerEl.append(containerNewGameBtnEl);
+  containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
+
+  generalBtnEl.addEventListener('click', () => pickDifficulty());
+  techBtnEl.addEventListener('click', () => pickTechTopic());
+};
+
+getParamsNewGame();
+
+const pickDifficulty = () => {
+  // todo: LocalStorage
+
+  containerNewGameBtnEl.remove();
+
+  containerEl.append(containerDifficultyBtns);
+  containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
+
+  easyBtnEl.addEventListener('click', () => getGeneralQuestions('easy'));
+  mediumBtnEl.addEventListener('click', () => getGeneralQuestions('medium'));
+  hardBtnEl.addEventListener('click', () => getGeneralQuestions('hard'));
+};
+
+const pickTechTopic = () => {
+  // todo: LocalStorage
+
+  containerNewGameBtnEl.remove();
+
+  containerEl.append(containerTechBtns);
+  containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
+
+  htmlBtnEl.addEventListener('click', () => getTechQuestions('HTML'));
+  javascriptBtnEl.addEventListener('click', () =>
+    getTechQuestions('JavaScript')
+  );
+};
+
+async function getTechQuestions(topic) {
+  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${questionsNumber}`;
   let response = await fetch(url);
   let data = await response.json();
 
@@ -69,8 +134,8 @@ async function getTechQuestions() {
   renderTechQuestion(techQuestions[currentQuestion]);
 }
 
-async function getGeneralQuestions() {
-  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&type=multiple`;
+async function getGeneralQuestions(difficulty) {
+  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&difficulty=${difficulty}&type=multiple`;
   let response = await fetch(url);
   let data = await response.json();
 
@@ -81,11 +146,14 @@ async function getGeneralQuestions() {
 }
 
 function renderGeneralQuestion(question) {
+  containerDifficultyBtns.remove();
+  containerNewGameBtnEl.remove();
+  containerTechBtns.remove();
   buttonContainerEl.innerHTML = '';
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   containerEl.prepend(questionsNumberEl);
-  startAgainBtnEl.textContent = 'Start Again';
+
   questionEl.innerHTML = question.question;
 
   let correctAnswer = question.correct_answer;
@@ -102,12 +170,12 @@ function renderGeneralQuestion(question) {
       } else {
         messageEl.textContent = `Nope 🦧`;
       }
-      //   initialState.rightAnswers += answer === correctAnswer ? 1 : 0;
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
         renderGeneralQuestion(questions[currentQuestion]);
       } else {
+        // showNewGameBtn();
         messageEl.textContent = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
         questionsNumberEl.innerHTML = 'FINISH';
 
@@ -121,10 +189,13 @@ function renderGeneralQuestion(question) {
 }
 
 function renderTechQuestion(question) {
+  containerDifficultyBtns.remove();
+  containerTechBtns.remove();
+  containerNewGameBtnEl.remove();
+
   buttonContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
-  startAgainBtnEl.textContent = 'Start Again';
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   containerEl.prepend(questionsNumberEl);
   questionEl.textContent = question.question;
@@ -152,6 +223,7 @@ function renderTechQuestion(question) {
           currentQuestion += 1;
           renderTechQuestion(techQuestions[currentQuestion]);
         } else {
+          // showNewGameBtn();
           messageEl.innerHTML = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
           questionsNumberEl.textContent = 'FINISH';
           questionEl.textContent = '';
@@ -163,12 +235,3 @@ function renderTechQuestion(question) {
     }
   });
 }
-
-startAgainBtnEl.addEventListener('click', () => {
-  currentQuestion = initialState.startQuestion;
-  rightAnswers = initialState.rightAnswers;
-  messageEl.textContent = initialState.message;
-
-  //   getGeneralQuestions();
-  getTechQuestions();
-});
