@@ -47,7 +47,7 @@ const containerEl = createElement('div', 'container');
 // containerEl.setAttribute('id', 'container');
 
 const gameMessageEl = createElement('div', 'game-message');
-gameMessageEl.innerHTML = `Welcome! ⭐️ <br> 🍬 Let's Start!`;
+gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 const gameScoreEl = createElement('div', 'game-score');
 const gameBoardEl = createElement('div', 'game-board');
 
@@ -85,6 +85,8 @@ const javascriptBtnEl = createElement(
 );
 
 const questionsNumberEl = createElement('h2', 'questions-number');
+questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
+
 const questionEl = createElement('div', 'question hide');
 const answersContainerEl = createElement('div', 'answers-container');
 
