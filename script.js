@@ -83,7 +83,7 @@ const javascriptBtnEl = createElement(
 );
 
 const questionsNumberEl = createElement('h2', 'questions-number');
-const questionEl = createElement('div', 'question');
+const questionEl = createElement('div', 'question hide');
 const answersContainerEl = createElement('div', 'answers-container');
 
 wrapperEl.append(headerEl, bodyEl, footerEl);
@@ -166,6 +166,7 @@ function renderGeneralQuestion(question) {
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   headerEl.append(questionsNumberEl);
 
+  questionEl.classList.remove('hide');
   questionEl.innerHTML = question.question;
 
   let correctAnswer = question.correct_answer;
@@ -194,7 +195,8 @@ function renderGeneralQuestion(question) {
         questionsNumberEl.innerHTML = 'FINISH';
         gameScoreEl.textContent = `Score: ${rightAnswers}`;
 
-        questionEl.innerHTML = '';
+        // questionEl.innerHTML = '';
+        questionEl.classList.add('hide');
         answersContainerEl.innerHTML = '';
       }
     });
@@ -213,6 +215,8 @@ function renderTechQuestion(question) {
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   headerEl.append(questionsNumberEl);
+
+  questionEl.classList.remove('hide');
   questionEl.textContent = question.question;
 
   let answers = question.answers;
@@ -243,7 +247,8 @@ function renderTechQuestion(question) {
           gameMessageEl.innerHTML = `Quiz completed 🍭`;
           gameScoreEl.textContent = `Score: ${rightAnswers}`;
           questionsNumberEl.textContent = 'FINISH';
-          questionEl.textContent = '';
+          // questionEl.textContent = '';
+          questionEl.classList.add('hide');
           answersContainerEl.textContent = '';
         }
       });
