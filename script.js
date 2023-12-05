@@ -8,8 +8,6 @@
 
 // todo: 3) add "Start Again" btn & connect with localStorage
 
-// todo: 4) add Final Message
-
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
 const initialState = {
@@ -116,6 +114,8 @@ const pickDifficulty = () => {
 
   containerNewGameBtnEl.remove();
 
+  gameMessageEl.innerHTML = `What level of difficulty? ⚔️`;
+
   gameBoardEl.append(containerDifficultyBtns);
   containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
 
@@ -166,6 +166,8 @@ function renderGeneralQuestion(question) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
+  gameMessageEl.innerHTML = `Let's start 🤸`;
+
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   headerEl.append(questionsNumberEl);
 
@@ -182,10 +184,10 @@ function renderGeneralQuestion(question) {
     answerEl.addEventListener('click', function () {
       if (answer === correctAnswer) {
         rightAnswers += 1;
-        gameMessageEl.textContent = `Correct! 🤜🤛`;
+        gameMessageEl.innerHTML = `Correct! 🤜🤛`;
         gameScoreEl.textContent = `Score: ${rightAnswers}`;
       } else {
-        gameMessageEl.textContent = `Nope 🦧`;
+        gameMessageEl.innerHTML = `Nope 🦧`;
         gameScoreEl.textContent = `Score: ${rightAnswers}`;
       }
 
@@ -194,11 +196,6 @@ function renderGeneralQuestion(question) {
         renderGeneralQuestion(questions[currentQuestion]);
       } else {
         showFinalMessage();
-        // gameMessageEl.textContent = `Quiz completed 🍭`;
-        // questionsNumberEl.innerHTML = 'Final';
-        // gameScoreEl.textContent = `Score: ${rightAnswers}`;
-        // questionEl.classList.add('hide');
-        // answersContainerEl.innerHTML = '';
       }
     });
 
@@ -234,10 +231,10 @@ function renderTechQuestion(question) {
 
         if (isCorrect) {
           rightAnswers += 1;
-          gameMessageEl.textContent = `Correct! 🤜🤛`;
+          gameMessageEl.innerHTML = `Correct! 🤜🤛`;
           gameScoreEl.textContent = `Score: ${rightAnswers}`;
         } else {
-          gameMessageEl.textContent = `Nope 🦧`;
+          gameMessageEl.innerHTML = `Nope 🦧`;
           gameScoreEl.textContent = `Score: ${rightAnswers}`;
         }
 
@@ -246,11 +243,6 @@ function renderTechQuestion(question) {
           renderTechQuestion(techQuestions[currentQuestion]);
         } else {
           showFinalMessage();
-          // gameMessageEl.innerHTML = `Quiz completed 🍭`;
-          // gameScoreEl.textContent = `Score: ${rightAnswers}`;
-          // questionsNumberEl.textContent = 'FINISH';
-          // questionEl.classList.add('hide');
-          // answersContainerEl.textContent = '';
         }
       });
 
@@ -262,7 +254,7 @@ function renderTechQuestion(question) {
 const showFinalMessage = () => {
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
   gameScoreEl.textContent = `Score: ${rightAnswers}`;
-  questionsNumberEl.textContent = 'FINISH';
+  questionsNumberEl.textContent = 'COMPLETED';
   questionEl.classList.add('hide');
   answersContainerEl.textContent = '';
 
