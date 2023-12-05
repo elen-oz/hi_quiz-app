@@ -8,7 +8,7 @@
 
 // todo: 3) add "Start Again" btn & connect with localStorage
 
-// todo: 4) add Finish Message
+// todo: 4) add Final Message
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
@@ -97,7 +97,9 @@ gameBoardEl.append(questionEl, answersContainerEl);
 let appEl = document.querySelector('#app');
 appEl.append(wrapperEl);
 
-const getParamsNewGame = () => {
+const startGame = () => {
+  containerEl.classList.remove('container--final-message');
+
   gameBoardEl.append(containerNewGameBtnEl);
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
 
@@ -105,7 +107,7 @@ const getParamsNewGame = () => {
   techBtnEl.addEventListener('click', () => pickTechTopic());
 };
 
-getParamsNewGame();
+startGame();
 
 const pickDifficulty = () => {
   // todo: LocalStorage
@@ -189,9 +191,9 @@ function renderGeneralQuestion(question) {
         currentQuestion += 1;
         renderGeneralQuestion(questions[currentQuestion]);
       } else {
-        showFinishMessage();
+        showFinalMessage();
         // gameMessageEl.textContent = `Quiz completed 🍭`;
-        // questionsNumberEl.innerHTML = 'FINISH';
+        // questionsNumberEl.innerHTML = 'Final';
         // gameScoreEl.textContent = `Score: ${rightAnswers}`;
         // questionEl.classList.add('hide');
         // answersContainerEl.innerHTML = '';
@@ -241,7 +243,7 @@ function renderTechQuestion(question) {
           currentQuestion += 1;
           renderTechQuestion(techQuestions[currentQuestion]);
         } else {
-          showFinishMessage();
+          showFinalMessage();
           // gameMessageEl.innerHTML = `Quiz completed 🍭`;
           // gameScoreEl.textContent = `Score: ${rightAnswers}`;
           // questionsNumberEl.textContent = 'FINISH';
@@ -255,10 +257,13 @@ function renderTechQuestion(question) {
   });
 }
 
-const showFinishMessage = () => {
+const showFinalMessage = () => {
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
   gameScoreEl.textContent = `Score: ${rightAnswers}`;
   questionsNumberEl.textContent = 'FINISH';
   questionEl.classList.add('hide');
   answersContainerEl.textContent = '';
+
+  containerEl.classList.add('container--final-message');
+  containerEl.innerHTML = `Quiz completed 🍭 <br> Score: ${rightAnswers}`;
 };
