@@ -19,6 +19,28 @@ const initialState = {
   message: `Good luck! 🍀`,
 };
 
+async function getTechQuestions(topic) {
+  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${questionsNumber}`;
+  let response = await fetch(url);
+  let data = await response.json();
+
+  techQuestions = data;
+  console.log(techQuestions);
+
+  renderTechQuestion(techQuestions[currentQuestion]);
+}
+
+async function getGeneralQuestions(difficulty) {
+  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&difficulty=${difficulty}&type=multiple`;
+  let response = await fetch(url);
+  let data = await response.json();
+
+  questions = data.results;
+  console.log(questions);
+
+  renderGeneralQuestion(questions[currentQuestion]);
+}
+
 let questions;
 let techQuestions;
 let questionsNumber = initialState.questionsNumber;
@@ -34,20 +56,18 @@ const createElement = (tag, classNames, textContent) => {
   return element;
 };
 
+// creating elements
 const wrapperEl = createElement('div', 'wrapper');
 const headerEl = createElement('header', 'header');
 const mainEl = createElement('main', 'body');
 const footerEl = createElement('footer', 'footer');
-footerEl.innerHTML =
-  '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
-
 const containerEl = createElement('div', 'container');
-// containerEl.setAttribute('id', 'container');
-
 const gameMessageEl = createElement('div', 'game-message');
-gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 const gameScoreEl = createElement('div', 'game-score');
 const gameBoardEl = createElement('div', 'game-board');
+const questionsNumberEl = createElement('h2', 'questions-number');
+const questionEl = createElement('div', 'question hide');
+const answersContainerEl = createElement('div', 'answers-container');
 
 const containerNewGameBtnEl = createElement('div', 'container-newGameButtons');
 const generalBtnEl = createElement(
@@ -82,55 +102,63 @@ const javascriptBtnEl = createElement(
   'JavaScript'
 );
 
-const questionsNumberEl = createElement('h2', 'questions-number');
-questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
-
-const questionEl = createElement('div', 'question hide');
-const answersContainerEl = createElement('div', 'answers-container');
-
 wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(questionsNumberEl);
 mainEl.append(containerEl);
 containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
 gameBoardEl.append(questionEl, answersContainerEl);
 
-let appEl = document.querySelector('#app');
-appEl.append(wrapperEl);
+// let appEl = document.querySelector('#app');
+// appEl.append(wrapperEl);
 
-const startGame = () => {
+document.querySelector('#app').append(wrapperEl);
+
+footerEl.innerHTML =
+  '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
+questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
+gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
+
+const renderStartGame = () => {
   containerEl.classList.remove('container--final-message');
 
   gameBoardEl.append(containerNewGameBtnEl);
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
+};
+
+const startGame = () => {
+  renderStartGame();
 
   generalBtnEl.addEventListener('click', () => pickDifficulty());
   techBtnEl.addEventListener('click', () => pickTechTopic());
 };
 
-startGame();
-
-const pickDifficulty = () => {
-  // todo: LocalStorage
-
+const renderPickDifficultyStage = () => {
   containerNewGameBtnEl.remove();
 
   gameMessageEl.innerHTML = `What level of difficulty? ⚔️`;
 
   gameBoardEl.append(containerDifficultyBtns);
   containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
+};
+
+const pickDifficulty = () => {
+  // todo: LocalStorage
+  renderPickDifficultyStage();
 
   easyBtnEl.addEventListener('click', () => getGeneralQuestions('easy'));
   mediumBtnEl.addEventListener('click', () => getGeneralQuestions('medium'));
   hardBtnEl.addEventListener('click', () => getGeneralQuestions('hard'));
 };
 
-const pickTechTopic = () => {
-  // todo: LocalStorage
-
+const renderPickTechTopicStage = () => {
   containerNewGameBtnEl.remove();
 
   gameBoardEl.append(containerTechBtns);
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
+};
+const pickTechTopic = () => {
+  // todo: LocalStorage
+  renderPickTechTopicStage();
 
   htmlBtnEl.addEventListener('click', () => getTechQuestions('HTML'));
   javascriptBtnEl.addEventListener('click', () =>
@@ -138,27 +166,15 @@ const pickTechTopic = () => {
   );
 };
 
-async function getTechQuestions(topic) {
-  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${questionsNumber}`;
-  let response = await fetch(url);
-  let data = await response.json();
-
-  techQuestions = data;
-  console.log(techQuestions);
-
-  renderTechQuestion(techQuestions[currentQuestion]);
-}
-
-async function getGeneralQuestions(difficulty) {
-  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&difficulty=${difficulty}&type=multiple`;
-  let response = await fetch(url);
-  let data = await response.json();
-
-  questions = data.results;
-  console.log(questions);
-
-  renderGeneralQuestion(questions[currentQuestion]);
-}
+const renderMessageAndScore = (isTrue) => {
+  if (isTrue) {
+    gameMessageEl.innerHTML = `Correct! 🤜🤛`;
+    gameScoreEl.textContent = `Score: ${rightAnswers}`;
+  } else {
+    gameMessageEl.innerHTML = `Nope 🦧`;
+    gameScoreEl.textContent = `Score: ${rightAnswers}`;
+  }
+};
 
 function renderGeneralQuestion(question) {
   containerDifficultyBtns.remove();
@@ -166,6 +182,7 @@ function renderGeneralQuestion(question) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
+  // todo: fix this line: doesnt change depending on the correct answer
   gameMessageEl.innerHTML = `Let's start 🤸`;
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
@@ -182,14 +199,18 @@ function renderGeneralQuestion(question) {
     const answerEl = createElement('button', 'button', answer);
 
     answerEl.addEventListener('click', function () {
-      if (answer === correctAnswer) {
-        rightAnswers += 1;
-        gameMessageEl.innerHTML = `Correct! 🤜🤛`;
-        gameScoreEl.textContent = `Score: ${rightAnswers}`;
-      } else {
-        gameMessageEl.innerHTML = `Nope 🦧`;
-        gameScoreEl.textContent = `Score: ${rightAnswers}`;
-      }
+      let isCorrect = answer === correctAnswer;
+
+      isCorrect && rightAnswers++;
+      renderMessageAndScore(isCorrect);
+      // if (isCorrect) {
+      //   rightAnswers += 1;
+      //   gameMessageEl.innerHTML = `Correct! 🤜🤛`;
+      //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
+      // } else {
+      //   gameMessageEl.innerHTML = `Nope 🦧`;
+      //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
+      // }
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
@@ -229,14 +250,16 @@ function renderTechQuestion(question) {
       answerEl.addEventListener('click', function () {
         let isCorrect = correctAnswers[key + '_correct'] === 'true';
 
-        if (isCorrect) {
-          rightAnswers += 1;
-          gameMessageEl.innerHTML = `Correct! 🤜🤛`;
-          gameScoreEl.textContent = `Score: ${rightAnswers}`;
-        } else {
-          gameMessageEl.innerHTML = `Nope 🦧`;
-          gameScoreEl.textContent = `Score: ${rightAnswers}`;
-        }
+        isCorrect && rightAnswers++;
+        renderMessageAndScore(isCorrect);
+        // if (isCorrect) {
+        //   rightAnswers += 1;
+        //   gameMessageEl.innerHTML = `Correct! 🤜🤛`;
+        //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
+        // } else {
+        //   gameMessageEl.innerHTML = `Nope 🦧`;
+        //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
+        // }
 
         if (currentQuestion < techQuestions.length - 1) {
           currentQuestion += 1;
@@ -261,3 +284,5 @@ const showFinalMessage = () => {
   containerEl.classList.add('container--final-message');
   containerEl.innerHTML = `Quiz completed 🍭 <br> Score: ${rightAnswers}`;
 };
+
+startGame();
