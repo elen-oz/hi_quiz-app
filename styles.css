@@ -90,16 +90,16 @@ body {
   }
 }
 
-.final-message {
+/* .final-message {
   grid-area: final-message;
-
-  font-size: 3rem;
-}
+} */
 
 .container--final-message {
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: 'final-message';
+  /* grid-template-rows: auto; */
+  /* grid-template-areas: 'final-message'; */
+
+  font-size: 2rem;
 }
 
 .container-newGameButtons {
