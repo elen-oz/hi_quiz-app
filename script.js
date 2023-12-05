@@ -48,7 +48,7 @@ const techBtnEl = createElement(
   'button button--topics',
   'Tech Questions'
 );
-// * --------------- difficulty ------------------
+
 const containerDifficultyBtns = createElement('div', 'container-difficulty');
 const easyBtnEl = createElement(
   'button',
@@ -62,7 +62,6 @@ const mediumBtnEl = createElement(
 );
 const hardBtnEl = createElement('button', 'button button--difficulty', 'Hard');
 
-// * ------------- tech topic ------------------
 const containerTechBtns = createElement('div', 'container-tech');
 const htmlBtnEl = createElement('button', 'button button-tech', 'HTML');
 const javascriptBtnEl = createElement(
@@ -75,7 +74,7 @@ const questionsNumberEl = createElement('h2', 'questions-number');
 const questionEl = createElement('div', 'question');
 const buttonContainerEl = createElement('div', 'button-container');
 const messageEl = createElement('div', 'message');
-messageEl.innerHTML = `Welcome! ⭐️<br>🍬 Let's Start!`;
+messageEl.innerHTML = `Welcome! ⭐️ <br> 🍬 Let's Start!`;
 
 // containerEl.append(startAgainBtnEl);
 containerEl.append(questionsNumberEl, questionEl, buttonContainerEl);
@@ -164,8 +163,8 @@ function renderGeneralQuestion(question) {
     const answerEl = createElement('button', 'button', answer);
 
     answerEl.addEventListener('click', function () {
-      if (correctAnswer) {
-        initialState.rightAnswers += 1;
+      if (answer === correctAnswer) {
+        rightAnswers += 1;
         messageEl.textContent = `Correct! 🤜🤛`;
       } else {
         messageEl.textContent = `Nope 🦧`;
