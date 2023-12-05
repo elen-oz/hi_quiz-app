@@ -37,9 +37,11 @@ const createElement = (tag, classNames, textContent) => {
 };
 
 const wrapperEl = createElement('div', 'wrapper');
-const headerEl = createElement('div', 'header');
-const bodyEl = createElement('div', 'body');
-const footerEl = createElement('div', 'footer');
+const headerEl = createElement('header', 'header');
+const mainEl = createElement('main', 'body');
+const footerEl = createElement('footer', 'footer');
+footerEl.innerHTML =
+  '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
 
 const containerEl = createElement('div', 'container');
 // containerEl.setAttribute('id', 'container');
@@ -86,9 +88,9 @@ const questionsNumberEl = createElement('h2', 'questions-number');
 const questionEl = createElement('div', 'question hide');
 const answersContainerEl = createElement('div', 'answers-container');
 
-wrapperEl.append(headerEl, bodyEl, footerEl);
+wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(questionsNumberEl);
-bodyEl.append(containerEl);
+mainEl.append(containerEl);
 containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
 gameBoardEl.append(questionEl, answersContainerEl);
 

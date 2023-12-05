@@ -27,9 +27,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* text-align: center; */
+}
 
-  border: 2px solid green;
+.footer a {
+  padding: 0.7rem;
+  text-transform: uppercase;
+  color: beige;
 }
 
 .body {
