@@ -4,22 +4,82 @@
   padding: 0;
 }
 body {
+  width: 100%;
   height: 100vh;
   background-color: salmon;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+
+  border: 2px dashed black;
+}
+
+.header,
+.footer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+
+  border: 2px solid green;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
   padding: 0 1rem;
+}
+
+/* inside container */
+.game-message {
+  grid-area: message;
+
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+  font-size: 1.2rem;
+  background-color: dodgerblue;
+  color: beige;
+}
+.game-score {
+  grid-area: score;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.game-board {
+  grid-area: main;
+  border: 2px dashed orange;
 }
 
 .container {
   margin: 0 auto;
-  margin-top: 6rem;
   max-width: 50rem;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between;
-  gap: 2rem; */
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'message main main main'
+    'score main main main';
+
+  column-gap: 0.5rem;
+
   text-align: center;
   background-color: bisque;
   border-radius: 5px;
@@ -51,7 +111,9 @@ body {
 .questions-number {
   display: inline-block;
   height: auto;
-  margin-bottom: 1rem;
+  padding: 1rem;
+
+  border: 2px solid red;
 }
 
 .question {
@@ -64,7 +126,7 @@ body {
   align-items: center;
 }
 
-.button-container {
+.answers-container {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -73,7 +135,7 @@ body {
   align-items: center;
 }
 @media (min-width: 33rem) {
-  .button-container {
+  .answers-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
@@ -143,18 +205,6 @@ body {
 }
 .button-tech:hover {
   border-color: dodgerblue;
-  background-color: dodgerblue;
-  color: beige;
-}
-
-.message {
-  margin: 1rem auto;
-  width: 15rem;
-  /* width: fit-content; */
-  text-align: center;
-  padding: 1.5rem 2rem;
-  border-radius: 5px;
-  font-size: 1.5rem;
   background-color: dodgerblue;
   color: beige;
 }

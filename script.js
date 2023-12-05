@@ -10,6 +10,8 @@
 
 // todo: 4) change layout to grid https://css-tricks.com/snippets/css/complete-guide-grid/
 
+const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
+
 const initialState = {
   questions: [],
   questionsNumber: 10,
@@ -34,8 +36,18 @@ const createElement = (tag, classNames, textContent) => {
   return element;
 };
 
+const wrapperEl = createElement('div', 'wrapper');
+const headerEl = createElement('div', 'header');
+const bodyEl = createElement('div', 'body');
+const footerEl = createElement('div', 'footer');
+
 const containerEl = createElement('div', 'container');
-containerEl.setAttribute('id', 'container');
+// containerEl.setAttribute('id', 'container');
+
+const gameMessageEl = createElement('div', 'game-message');
+gameMessageEl.innerHTML = `Welcome! ⭐️ <br> 🍬 Let's Start!`;
+const gameScoreEl = createElement('div', 'game-score');
+const gameBoardEl = createElement('div', 'game-board');
 
 const containerNewGameBtnEl = createElement('div', 'container-newGameButtons');
 const generalBtnEl = createElement(
@@ -72,21 +84,22 @@ const javascriptBtnEl = createElement(
 
 const questionsNumberEl = createElement('h2', 'questions-number');
 const questionEl = createElement('div', 'question');
-const buttonContainerEl = createElement('div', 'button-container');
-const messageEl = createElement('div', 'message');
-messageEl.innerHTML = `Welcome! ⭐️ <br> 🍬 Let's Start!`;
+const answersContainerEl = createElement('div', 'answers-container');
 
-// containerEl.append(startAgainBtnEl);
-containerEl.append(questionsNumberEl, questionEl, buttonContainerEl);
-
-const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
+wrapperEl.append(headerEl, bodyEl, footerEl);
+headerEl.append(questionsNumberEl);
+bodyEl.append(containerEl);
+containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
+gameBoardEl.append(questionEl, answersContainerEl);
 
 let appEl = document.querySelector('#app');
-appEl.append(containerEl);
-appEl.append(messageEl);
+appEl.append(wrapperEl);
+// appEl.append(gameMessageEl);
+
+// wrapperEl.append(gameMessageEl);
 
 const getParamsNewGame = () => {
-  containerEl.append(containerNewGameBtnEl);
+  gameBoardEl.append(containerNewGameBtnEl);
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
 
   generalBtnEl.addEventListener('click', () => pickDifficulty());
@@ -100,7 +113,7 @@ const pickDifficulty = () => {
 
   containerNewGameBtnEl.remove();
 
-  containerEl.append(containerDifficultyBtns);
+  gameBoardEl.append(containerDifficultyBtns);
   containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
 
   easyBtnEl.addEventListener('click', () => getGeneralQuestions('easy'));
@@ -113,7 +126,7 @@ const pickTechTopic = () => {
 
   containerNewGameBtnEl.remove();
 
-  containerEl.append(containerTechBtns);
+  gameBoardEl.append(containerTechBtns);
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
 
   htmlBtnEl.addEventListener('click', () => getTechQuestions('HTML'));
@@ -148,10 +161,10 @@ function renderGeneralQuestion(question) {
   containerDifficultyBtns.remove();
   containerNewGameBtnEl.remove();
   containerTechBtns.remove();
-  buttonContainerEl.innerHTML = '';
+  answersContainerEl.innerHTML = '';
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  containerEl.prepend(questionsNumberEl);
+  headerEl.append(questionsNumberEl);
 
   questionEl.innerHTML = question.question;
 
@@ -165,9 +178,11 @@ function renderGeneralQuestion(question) {
     answerEl.addEventListener('click', function () {
       if (answer === correctAnswer) {
         rightAnswers += 1;
-        messageEl.textContent = `Correct! 🤜🤛`;
+        gameMessageEl.textContent = `Correct! 🤜🤛`;
+        gameScoreEl.textContent = `Score: ${rightAnswers}`;
       } else {
-        messageEl.textContent = `Nope 🦧`;
+        gameMessageEl.textContent = `Nope 🦧`;
+        gameScoreEl.textContent = `Score: ${rightAnswers}`;
       }
 
       if (currentQuestion < questions.length - 1) {
@@ -175,15 +190,16 @@ function renderGeneralQuestion(question) {
         renderGeneralQuestion(questions[currentQuestion]);
       } else {
         // showNewGameBtn();
-        messageEl.textContent = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
+        gameMessageEl.textContent = `Quiz completed 🍭`;
         questionsNumberEl.innerHTML = 'FINISH';
+        gameScoreEl.textContent = `Score: ${rightAnswers}`;
 
         questionEl.innerHTML = '';
-        buttonContainerEl.innerHTML = '';
+        answersContainerEl.innerHTML = '';
       }
     });
 
-    buttonContainerEl.append(answerEl);
+    answersContainerEl.append(answerEl);
   });
 }
 
@@ -192,11 +208,11 @@ function renderTechQuestion(question) {
   containerTechBtns.remove();
   containerNewGameBtnEl.remove();
 
-  buttonContainerEl.innerHTML = '';
+  answersContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  containerEl.prepend(questionsNumberEl);
+  headerEl.append(questionsNumberEl);
   questionEl.textContent = question.question;
 
   let answers = question.answers;
@@ -213,24 +229,26 @@ function renderTechQuestion(question) {
 
         if (isCorrect) {
           rightAnswers += 1;
-          messageEl.textContent = `Correct! 🤜🤛`;
+          gameMessageEl.textContent = `Correct! 🤜🤛`;
+          gameScoreEl.textContent = `Score: ${rightAnswers}`;
         } else {
-          messageEl.textContent = `Nope 🦧`;
+          gameMessageEl.textContent = `Nope 🦧`;
+          gameScoreEl.textContent = `Score: ${rightAnswers}`;
         }
 
         if (currentQuestion < techQuestions.length - 1) {
           currentQuestion += 1;
           renderTechQuestion(techQuestions[currentQuestion]);
         } else {
-          // showNewGameBtn();
-          messageEl.innerHTML = `Quiz completed 🍭<br>Right answers: ${rightAnswers}`;
+          gameMessageEl.innerHTML = `Quiz completed 🍭`;
+          gameScoreEl.textContent = `Score: ${rightAnswers}`;
           questionsNumberEl.textContent = 'FINISH';
           questionEl.textContent = '';
-          buttonContainerEl.textContent = '';
+          answersContainerEl.textContent = '';
         }
       });
 
-      buttonContainerEl.append(answerEl);
+      answersContainerEl.append(answerEl);
     }
   });
 }
