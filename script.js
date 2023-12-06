@@ -1,10 +1,10 @@
 'use strict';
 
-// todo: V 1) ability to pick difficulty
-// todo: 1.а) save to localStotrage
+// todo: V ---1) ability to pick difficulty
+// todo: 1.а) save to localStorage
 
 // todo: 2) ability to chose amount of questions
-// todo: 2.а) save to localStotrage
+// todo: 2.а) save to localStorage
 
 // todo: 3) add "Start Again" btn
 
@@ -66,7 +66,6 @@ const createElement = (tag, classNames, textContent) => {
   return element;
 };
 
-// creating elements
 const wrapperEl = createElement('div', 'wrapper');
 const headerEl = createElement('header', 'header');
 const mainEl = createElement('main', 'main');
@@ -119,10 +118,10 @@ const javascriptBtnEl = createElement(
 
 wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(playAgainBtnEl);
-mainEl.append(questionsNumberEl);
-mainEl.append(containerEl);
-containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl, answersContainerEl);
-gameBoardEl.append(questionEl);
+// mainEl.append(questionsNumberEl);
+// mainEl.append(containerEl);
+// containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl, answersContainerEl);
+// gameBoardEl.append(questionEl);
 
 document.querySelector('#app').append(wrapperEl);
 
@@ -132,7 +131,18 @@ questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
 gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 
 const renderStartGame = () => {
+  // here
   containerEl.classList.remove('container--final-message');
+
+  mainEl.append(questionsNumberEl);
+  mainEl.append(containerEl);
+  containerEl.append(
+    gameMessageEl,
+    gameScoreEl,
+    gameBoardEl,
+    answersContainerEl
+  );
+  gameBoardEl.append(questionEl);
 
   gameBoardEl.append(containerNewGameBtnEl);
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
@@ -195,10 +205,7 @@ function renderGeneralQuestion(question) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
-  // gameMessageEl.innerHTML = `Let's start 🤸`;
-
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  // headerEl.append(questionsNumberEl); mainEl
 
   questionEl.classList.remove('hide');
   questionEl.innerHTML = question.question;
@@ -208,9 +215,7 @@ function renderGeneralQuestion(question) {
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
-    // here
     const answerEl = createElement('button', 'button', answer);
-    // answer.innerHTML = answer;
 
     answerEl.addEventListener('click', function () {
       let isCorrect = answer === correctAnswer;
@@ -239,7 +244,6 @@ function renderTechQuestion(question) {
   questionsNumberEl.innerHTML = '';
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  // headerEl.append(questionsNumberEl); mainEl
 
   questionEl.classList.remove('hide');
   questionEl.textContent = question.question;
@@ -284,3 +288,18 @@ const showFinalMessage = () => {
 };
 
 startGame();
+
+// here
+
+playAgainBtnEl.addEventListener('click', () => {
+  currentQuestion = initialState.startQuestion;
+  rightAnswers = initialState.rightAnswers;
+
+  answersContainerEl.innerHTML = '';
+  questionEl.innerHTML = '';
+  questionEl.classList.add('hide');
+  gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
+  gameScoreEl.textContent = '';
+
+  startGame();
+});
