@@ -5,7 +5,7 @@
   --gray: #a1a1aa;
   --dark-gray: #27272a;
 
-  --shadow: 10px 10px 0px 0px rgba(72, 72, 72, 0.75);
+  --shadow: 3px 3px 0px 0px rgba(72, 72, 72, 0.75);
 }
 
 * {
@@ -186,6 +186,7 @@ body {
   font-family: inherit;
   font-size: 1.1rem;
   transition: 0.3s;
+  box-shadow: var(--shadow);
 }
 .button:hover {
   border-color: var(--accent);
