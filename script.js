@@ -277,14 +277,13 @@ function renderTechQuestion(question) {
 }
 
 const showFinalMessage = () => {
+  // todo: change final message? add info
+
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
-  // gameScoreEl.textContent = `Score: ${rightAnswers}`;
   questionsNumberEl.textContent = 'COMPLETED';
   questionEl.classList.add('hide');
   answersContainerEl.textContent = '';
-
   containerEl.classList.add('container--final-message');
-  containerEl.innerHTML = `Quiz completed 🍭 <br> Score: ${rightAnswers}`;
 };
 
 startGame();
@@ -292,6 +291,9 @@ startGame();
 // here
 
 playAgainBtnEl.addEventListener('click', () => {
+  questions = initialState.questions;
+  techQuestions = initialState.questions;
+  questionsNumber = initialState.questionsNumber;
   currentQuestion = initialState.startQuestion;
   rightAnswers = initialState.rightAnswers;
 

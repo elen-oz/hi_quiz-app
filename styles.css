@@ -51,7 +51,7 @@ body {
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
@@ -103,6 +103,8 @@ body {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  grid-auto-rows: 1fr;
   gap: 1rem;
   justify-content: center;
   align-items: stretch;
@@ -132,7 +134,7 @@ body {
 @media (min-width: 33rem) {
   .container {
     width: 50rem;
-
+    /* height: 30rem; */
     padding: 4rem 2rem 2rem;
 
     grid-template-columns: 1fr 1fr 1fr;
