@@ -25,38 +25,25 @@ export const questionEl = createElement('div', 'question hide');
 export const answersContainerEl = createElement('div', 'answers-container');
 export const containerNewGameBtnEl = createElement(
   'div',
-  'container-newGameButtons'
+  'container-buttons-selection'
 );
 export const generalBtnEl = createElement(
   'button',
-  'button button--topics',
+  'button',
   'General Questions'
 );
-export const techBtnEl = createElement(
-  'button',
-  'button button--topics',
-  'Tech Questions'
-);
+export const techBtnEl = createElement('button', 'button', 'Tech Questions');
 export const containerDifficultyBtns = createElement(
   'div',
-  'container-difficulty'
+  'container-buttons-selection'
 );
-export const easyBtnEl = createElement(
-  'button',
-  'button button--difficulty',
-  'Easy Peasy'
+export const easyBtnEl = createElement('button', 'button', 'Easy Peasy');
+export const mediumBtnEl = createElement('button', 'button', 'Medium');
+export const hardBtnEl = createElement('button', 'button', 'Hard');
+export const containerTechBtns = createElement(
+  'div',
+  'container-buttons-selection'
 );
-export const mediumBtnEl = createElement(
-  'button',
-  'button button--difficulty',
-  'Medium'
-);
-export const hardBtnEl = createElement(
-  'button',
-  'button button--difficulty',
-  'Hard'
-);
-export const containerTechBtns = createElement('div', 'container-tech');
 export const htmlBtnEl = createElement('button', 'button button-tech', 'HTML');
 export const javascriptBtnEl = createElement(
   'button',
@@ -136,7 +123,7 @@ export function renderGeneralQuestion(question, state) {
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
-    const answerEl = createElement('button', 'button', answer);
+    const answerEl = createElement('button', 'button button--answer', answer);
 
     answerEl.addEventListener('click', function () {
       let isCorrect = answer === correctAnswer;
@@ -194,7 +181,7 @@ export function renderTechQuestion(question, state) {
     if (answers[key] !== null) {
       let answerEl = document.createElement('button');
       answerEl.textContent = answers[key];
-      answerEl.classList.add('button');
+      answerEl.classList.add('button button--answer');
 
       answerEl.addEventListener('click', function () {
         let isCorrect = correctAnswers[key + '_correct'] === 'true';
