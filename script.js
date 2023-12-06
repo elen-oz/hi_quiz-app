@@ -60,6 +60,11 @@ const createElement = (tag, classNames, textContent) => {
 const wrapperEl = createElement('div', 'wrapper');
 const headerEl = createElement('header', 'header');
 const mainEl = createElement('main', 'body');
+const playAgainBtnEl = createElement(
+  'button',
+  'button button--again',
+  'Restart'
+);
 const footerEl = createElement('footer', 'footer');
 const containerEl = createElement('div', 'container');
 const gameMessageEl = createElement('div', 'game-message');
@@ -103,7 +108,7 @@ const javascriptBtnEl = createElement(
 );
 
 wrapperEl.append(headerEl, mainEl, footerEl);
-// headerEl.append() добавить кнопку новой игры
+headerEl.append(playAgainBtnEl);
 mainEl.append(questionsNumberEl);
 mainEl.append(containerEl);
 containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
