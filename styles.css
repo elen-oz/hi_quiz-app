@@ -131,6 +131,8 @@ body {
 }
 @media (min-width: 33rem) {
   .container {
+    width: 50rem;
+
     padding: 4rem 2rem 2rem;
 
     grid-template-columns: 1fr 1fr 1fr;
