@@ -22,6 +22,11 @@ const initialState = {
 async function getTechQuestions(topic) {
   let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${questionsNumber}`;
   let response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`API call failed: ${response.status}`);
+  }
+
   let data = await response.json();
 
   techQuestions = data;
@@ -33,6 +38,11 @@ async function getTechQuestions(topic) {
 async function getGeneralQuestions(difficulty) {
   let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&difficulty=${difficulty}&type=multiple`;
   let response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`API call failed: ${response.status}`);
+  }
+
   let data = await response.json();
 
   questions = data.results;
@@ -59,7 +69,7 @@ const createElement = (tag, classNames, textContent) => {
 // creating elements
 const wrapperEl = createElement('div', 'wrapper');
 const headerEl = createElement('header', 'header');
-const mainEl = createElement('main', 'body');
+const mainEl = createElement('main', 'main');
 const playAgainBtnEl = createElement(
   'button',
   'button button--again',
@@ -174,7 +184,7 @@ const pickTechTopic = () => {
 
 const renderMessageAndScore = (isTrue) => {
   if (isTrue) {
-    gameMessageEl.innerHTML = `Correct! 🤜🤛`;
+    gameMessageEl.innerHTML = `Correct! 🎯`;
     gameScoreEl.textContent = `Score: ${rightAnswers}`;
   } else {
     gameMessageEl.innerHTML = `Nope 🦧`;
@@ -191,7 +201,7 @@ function renderGeneralQuestion(question) {
   // gameMessageEl.innerHTML = `Let's start 🤸`;
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  headerEl.append(questionsNumberEl);
+  // headerEl.append(questionsNumberEl); mainEl
 
   questionEl.classList.remove('hide');
   questionEl.innerHTML = question.question;
@@ -201,21 +211,15 @@ function renderGeneralQuestion(question) {
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
+    // here
     const answerEl = createElement('button', 'button', answer);
+    // answer.innerHTML = answer;
 
     answerEl.addEventListener('click', function () {
       let isCorrect = answer === correctAnswer;
 
       isCorrect && rightAnswers++;
       renderMessageAndScore(isCorrect);
-      // if (isCorrect) {
-      //   rightAnswers += 1;
-      //   gameMessageEl.innerHTML = `Correct! 🤜🤛`;
-      //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
-      // } else {
-      //   gameMessageEl.innerHTML = `Nope 🦧`;
-      //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
-      // }
 
       if (currentQuestion < questions.length - 1) {
         currentQuestion += 1;
@@ -238,7 +242,7 @@ function renderTechQuestion(question) {
   questionsNumberEl.innerHTML = '';
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
-  headerEl.append(questionsNumberEl);
+  // headerEl.append(questionsNumberEl); mainEl
 
   questionEl.classList.remove('hide');
   questionEl.textContent = question.question;
@@ -257,14 +261,6 @@ function renderTechQuestion(question) {
 
         isCorrect && rightAnswers++;
         renderMessageAndScore(isCorrect);
-        // if (isCorrect) {
-        //   rightAnswers += 1;
-        //   gameMessageEl.innerHTML = `Correct! 🤜🤛`;
-        //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
-        // } else {
-        //   gameMessageEl.innerHTML = `Nope 🦧`;
-        //   gameScoreEl.textContent = `Score: ${rightAnswers}`;
-        // }
 
         if (currentQuestion < techQuestions.length - 1) {
           currentQuestion += 1;
@@ -281,7 +277,7 @@ function renderTechQuestion(question) {
 
 const showFinalMessage = () => {
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
-  gameScoreEl.textContent = `Score: ${rightAnswers}`;
+  // gameScoreEl.textContent = `Score: ${rightAnswers}`;
   questionsNumberEl.textContent = 'COMPLETED';
   questionEl.classList.add('hide');
   answersContainerEl.textContent = '';

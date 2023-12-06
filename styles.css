@@ -2,6 +2,7 @@
   --main: #fa8072;
   --gray: #f4f4f5;
   --accent: #1e90ff;
+  --dark-gray: #27272a;
 }
 
 * {
@@ -14,6 +15,7 @@ body {
   height: 100vh;
   background-color: var(--main);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: var(--dark-gray);
 }
 
 .wrapper {
@@ -42,7 +44,8 @@ body {
   color: var(--accent);
 }
 
-.body {
+.main {
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   padding: 0 1rem;
@@ -51,6 +54,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+/* @media (min-width: 33rem) {
+  .main {
+    width: 50rem;
+  }
+} */
 
 /* inside container */
 .game-message {
@@ -86,13 +94,13 @@ body {
   margin: 0 auto;
   max-width: 50rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    'message main main main'
-    'score main main main';
-
-  column-gap: 0.5rem;
+    'message score'
+    ' main main';
+  row-gap: 1rem;
 
   text-align: center;
   background-color: var(--gray);
@@ -101,6 +109,13 @@ body {
 @media (min-width: 33rem) {
   .container {
     padding: 4rem 2rem 2rem;
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'message main main main'
+      'score main main main';
+    column-gap: 0.5rem;
   }
 }
 
@@ -172,7 +187,7 @@ body {
   width: 100%;
   height: auto;
   /* border: 2px solid var(--main); */
-  border: 2px solid #000;
+  border: 2px solid var(--dark-gray);
   border-radius: 4px;
   font-family: inherit;
   font-size: 1.1rem;
