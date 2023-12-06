@@ -53,7 +53,6 @@ export const javascriptBtnEl = createElement(
 
 wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(playAgainBtnEl);
-
 document.querySelector('#app').append(wrapperEl);
 
 footerEl.innerHTML =
@@ -110,7 +109,6 @@ export function renderGeneralQuestion(question, state) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
-  // currentState --
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
   }`;
@@ -155,9 +153,6 @@ export const showFinalMessage = () => {
   answersContainerEl.textContent = '';
   containerEl.classList.add('container--final-message');
 };
-
-// ! -------------------------------------------------------------------------
-// ! -------------------------------------------------------------------------
 
 export function renderTechQuestion(question, state) {
   containerDifficultyBtns.remove();
