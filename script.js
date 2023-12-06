@@ -8,14 +8,14 @@ const initialState = {
   questions: [],
   questionsNumber: 10,
   startQuestion: 0,
-  rightAnswers: 0,
+  score: 0,
 };
 
 const currentState = {
   questions: [...initialState.questions],
   questionsNumber: initialState.questionsNumber,
-  currentQuestion: initialState.startQuestion,
-  rightAnswers: initialState.rightAnswers,
+  currentQuestionIndex: initialState.startQuestion,
+  score: initialState.score,
 };
 
 async function getTechQuestions(topic) {
@@ -31,7 +31,7 @@ async function getTechQuestions(topic) {
   currentState.questions = data;
   console.log(currentState.questions);
 
-  renderTechQuestion(currentState.questions[currentState.currentQuestion]);
+  renderTechQuestion(currentState.questions[currentState.currentQuestionIndex]);
 }
 
 async function getGeneralQuestions(difficulty) {
@@ -47,11 +47,10 @@ async function getGeneralQuestions(difficulty) {
   currentState.questions = data.results;
   console.log(currentState.questions);
 
-  renderGeneralQuestion(currentState.questions[currentState.currentQuestion]);
+  renderGeneralQuestion(
+    currentState.questions[currentState.currentQuestionIndex]
+  );
 }
-
-// let questions;
-// let techQuestions;
 
 const createElement = (tag, classNames, textContent) => {
   const element = document.createElement(tag);
@@ -114,10 +113,6 @@ const javascriptBtnEl = createElement(
 
 wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(playAgainBtnEl);
-// mainEl.append(questionsNumberEl);
-// mainEl.append(containerEl);
-// containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl, answersContainerEl);
-// gameBoardEl.append(questionEl);
 
 document.querySelector('#app').append(wrapperEl);
 
@@ -144,10 +139,11 @@ const renderStartGame = () => {
 };
 
 const startGame = () => {
+  removeEventListeners();
   renderStartGame();
 
-  generalBtnEl.addEventListener('click', () => pickDifficulty());
-  techBtnEl.addEventListener('click', () => pickTechTopic());
+  generalBtnEl.addEventListener('click', handleDifficultyClick);
+  techBtnEl.addEventListener('click', handleTechTopicClick);
 };
 
 const renderPickDifficultyStage = () => {
@@ -159,13 +155,32 @@ const renderPickDifficultyStage = () => {
   containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
 };
 
+const handleDifficultyClick = () => pickDifficulty();
+const handleTechTopicClick = () => pickTechTopic();
+const handleEasyClick = () => getGeneralQuestions('easy');
+const handleMediumClick = () => getGeneralQuestions('medium');
+const handleHardClick = () => getGeneralQuestions('hard');
+const handleQuestionsHtmlClick = () => getTechQuestions('HTML');
+const handleQuestionsJavascriptClick = () => getTechQuestions('JavaScript');
+
+function removeEventListeners() {
+  generalBtnEl.addEventListener('click', handleDifficultyClick);
+  techBtnEl.addEventListener('click', handleTechTopicClick);
+  easyBtnEl.removeEventListener('click', handleEasyClick);
+  mediumBtnEl.removeEventListener('click', handleMediumClick);
+  hardBtnEl.removeEventListener('click', handleHardClick);
+  htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
+}
+
 const pickDifficulty = () => {
   // todo: LocalStorage
   renderPickDifficultyStage();
+  removeEventListeners();
 
-  easyBtnEl.addEventListener('click', () => getGeneralQuestions('easy'));
-  mediumBtnEl.addEventListener('click', () => getGeneralQuestions('medium'));
-  hardBtnEl.addEventListener('click', () => getGeneralQuestions('hard'));
+  easyBtnEl.addEventListener('click', handleEasyClick);
+  mediumBtnEl.addEventListener('click', handleMediumClick);
+  hardBtnEl.addEventListener('click', handleHardClick);
 };
 
 const renderPickTechTopicStage = () => {
@@ -174,23 +189,23 @@ const renderPickTechTopicStage = () => {
   gameBoardEl.append(containerTechBtns);
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
 };
+
 const pickTechTopic = () => {
   // todo: LocalStorage
   renderPickTechTopicStage();
+  removeEventListeners();
 
-  htmlBtnEl.addEventListener('click', () => getTechQuestions('HTML'));
-  javascriptBtnEl.addEventListener('click', () =>
-    getTechQuestions('JavaScript')
-  );
+  htmlBtnEl.addEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.addEventListener('click', handleQuestionsJavascriptClick);
 };
 
 const renderMessageAndScore = (isTrue) => {
   if (isTrue) {
     gameMessageEl.innerHTML = `Correct! 🎯`;
-    gameScoreEl.textContent = `Score: ${currentState.rightAnswers}`;
+    gameScoreEl.textContent = `Score: ${currentState.score}`;
   } else {
     gameMessageEl.innerHTML = `Nope 🦧`;
-    gameScoreEl.textContent = `Score: ${currentState.rightAnswers}`;
+    gameScoreEl.textContent = `Score: ${currentState.score}`;
   }
 };
 
@@ -200,7 +215,7 @@ function renderGeneralQuestion(question) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
-  questionsNumberEl.textContent = `${currentState.currentQuestion + 1} / ${
+  questionsNumberEl.textContent = `${currentState.currentQuestionIndex + 1} / ${
     currentState.questionsNumber
   }`;
 
@@ -217,13 +232,16 @@ function renderGeneralQuestion(question) {
     answerEl.addEventListener('click', function () {
       let isCorrect = answer === correctAnswer;
 
-      isCorrect && currentState.rightAnswers++;
+      isCorrect && currentState.score++;
       renderMessageAndScore(isCorrect);
 
-      if (currentState.currentQuestion < currentState.questions.length - 1) {
-        currentState.currentQuestion += 1;
+      if (
+        currentState.currentQuestionIndex <
+        currentState.questions.length - 1
+      ) {
+        currentState.currentQuestionIndex += 1;
         renderGeneralQuestion(
-          currentState.questions[currentState.currentQuestion]
+          currentState.questions[currentState.currentQuestionIndex]
         );
       } else {
         showFinalMessage();
@@ -242,7 +260,7 @@ function renderTechQuestion(question) {
   answersContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
-  questionsNumberEl.textContent = `${currentState.currentQuestion + 1} / ${
+  questionsNumberEl.textContent = `${currentState.currentQuestionIndex + 1} / ${
     currentState.questionsNumber
   }`;
 
@@ -261,13 +279,16 @@ function renderTechQuestion(question) {
       answerEl.addEventListener('click', function () {
         let isCorrect = correctAnswers[key + '_correct'] === 'true';
 
-        isCorrect && currentState.rightAnswers++;
+        isCorrect && currentState.score++;
         renderMessageAndScore(isCorrect);
 
-        if (currentState.currentQuestion < currentState.questions.length - 1) {
-          currentState.currentQuestion += 1;
+        if (
+          currentState.currentQuestionIndex <
+          currentState.questions.length - 1
+        ) {
+          currentState.currentQuestionIndex += 1;
           renderTechQuestion(
-            currentState.questions[currentState.currentQuestion]
+            currentState.questions[currentState.currentQuestionIndex]
           );
         } else {
           showFinalMessage();
@@ -292,10 +313,12 @@ const showFinalMessage = () => {
 startGame();
 
 playAgainBtnEl.addEventListener('click', () => {
+  console.log('currentState.score', currentState.score);
+
   currentState.questions = [...initialState.questions];
   currentState.questionsNumber = initialState.questionsNumber;
-  currentState.currentQuestion = initialState.startQuestion;
-  currentState.rightAnswers = initialState.rightAnswers;
+  currentState.currentQuestionIndex = initialState.startQuestion;
+  currentState.score = initialState.score;
 
   answersContainerEl.innerHTML = '';
   questionEl.innerHTML = '';
