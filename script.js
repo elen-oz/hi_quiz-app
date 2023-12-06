@@ -121,11 +121,8 @@ wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(playAgainBtnEl);
 mainEl.append(questionsNumberEl);
 mainEl.append(containerEl);
-containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
-gameBoardEl.append(questionEl, answersContainerEl);
-
-// let appEl = document.querySelector('#app');
-// appEl.append(wrapperEl);
+containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl, answersContainerEl);
+gameBoardEl.append(questionEl);
 
 document.querySelector('#app').append(wrapperEl);
 
