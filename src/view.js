@@ -1,3 +1,13 @@
+import {
+  handleDifficultyClick,
+  handleTechTopicClick,
+  handleEasyClick,
+  handleMediumClick,
+  handleHardClick,
+  handleQuestionsHtmlClick,
+  handleQuestionsJavascriptClick,
+} from './utils.js';
+
 export const createElement = (tag, classNames, textContent) => {
   const element = document.createElement(tag);
   if (classNames) {
@@ -176,7 +186,7 @@ export function renderTechQuestion(question, state) {
     if (answers[key] !== null) {
       let answerEl = document.createElement('button');
       answerEl.textContent = answers[key];
-      answerEl.classList.add('button button--answer');
+      answerEl.classList.add('button', 'button--answer');
 
       answerEl.addEventListener('click', function () {
         let isCorrect = correctAnswers[key + '_correct'] === 'true';
@@ -199,3 +209,32 @@ export function renderTechQuestion(question, state) {
     }
   });
 }
+
+export function removeEventListeners() {
+  generalBtnEl.addEventListener('click', handleDifficultyClick);
+  techBtnEl.addEventListener('click', handleTechTopicClick);
+  easyBtnEl.removeEventListener('click', handleEasyClick);
+  mediumBtnEl.removeEventListener('click', handleMediumClick);
+  hardBtnEl.removeEventListener('click', handleHardClick);
+  htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
+}
+
+export const pickDifficulty = () => {
+  // todo: LocalStorage
+  renderPickDifficultyStage();
+  removeEventListeners();
+
+  easyBtnEl.addEventListener('click', handleEasyClick);
+  mediumBtnEl.addEventListener('click', handleMediumClick);
+  hardBtnEl.addEventListener('click', handleHardClick);
+};
+
+export const pickTechTopic = () => {
+  // todo: LocalStorage
+  renderPickTechTopicStage();
+  removeEventListeners();
+
+  htmlBtnEl.addEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.addEventListener('click', handleQuestionsJavascriptClick);
+};
