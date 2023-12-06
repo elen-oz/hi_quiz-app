@@ -1,7 +1,8 @@
 :root {
   --main: #fa8072;
-  --gray: #f4f4f5;
+  --card-bg: #f4f4f5;
   --accent: #1e90ff;
+  --gray: #a1a1aa;
   --dark-gray: #27272a;
 }
 
@@ -38,7 +39,7 @@ body {
 .footer a {
   padding: 0.7rem;
   text-transform: uppercase;
-  color: var(--gray);
+  color: var(--card-bg);
 }
 .footer a:hover {
   color: var(--accent);
@@ -68,7 +69,7 @@ body {
   border-radius: 5px;
   font-size: 1.2rem;
   background-color: var(--accent);
-  color: var(--gray);
+  color: var(--card-bg);
 }
 .game-score {
   grid-area: score;
@@ -82,6 +83,10 @@ body {
 }
 .game-board {
   grid-area: main;
+  padding: 1rem 0;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  border: 2px dashed var(--gray);
 }
 
 .question {
@@ -100,6 +105,7 @@ body {
 .answers-container {
   grid-area: answers;
 
+  padding: 0 0.5rem 1rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -124,17 +130,17 @@ body {
   grid-template-rows: auto;
   grid-template-areas:
     'message score'
-    ' main main';
+    'main main'
+    'answers answers';
   row-gap: 1rem;
   text-align: center;
   align-items: stretch;
-  background-color: var(--gray);
+  background-color: var(--card-bg);
   border-radius: 5px;
 }
-@media (min-width: 33rem) {
+@media (min-width: 51rem) {
   .container {
     width: 50rem;
-    /* height: 30rem; */
     padding: 4rem 2rem 2rem;
 
     grid-template-columns: 1fr 1fr 1fr;
@@ -197,7 +203,7 @@ body {
 }
 .button:hover {
   background-color: var(--main);
-  color: var(--gray);
+  color: var(--card-bg);
 }
 
 .button--again {
@@ -211,7 +217,7 @@ body {
 .button--again:hover {
   border-color: var(--accent);
   background-color: var(--accent);
-  color: var(--gray);
+  color: var(--card-bg);
 }
 
 .button--topics {
@@ -224,7 +230,7 @@ body {
 .button--topics:hover {
   border-color: var(--accent);
   background-color: var(--accent);
-  color: var(--gray);
+  color: var(--card-bg);
 }
 
 .button--difficulty {
@@ -237,7 +243,7 @@ body {
 .button--difficulty:hover {
   border-color: var(--accent);
   background-color: var(--accent);
-  color: var(--gray);
+  color: var(--card-bg);
 }
 
 .button-tech {
@@ -250,5 +256,5 @@ body {
 .button-tech:hover {
   border-color: var(--accent);
   background-color: var(--accent);
-  color: var(--gray);
+  color: var(--card-bg);
 }

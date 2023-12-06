@@ -131,7 +131,6 @@ questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
 gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 
 const renderStartGame = () => {
-  // here
   containerEl.classList.remove('container--final-message');
 
   mainEl.append(questionsNumberEl);
@@ -204,7 +203,7 @@ function renderGeneralQuestion(question) {
   containerNewGameBtnEl.remove();
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
-
+  // here
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
 
   questionEl.classList.remove('hide');
@@ -287,8 +286,6 @@ const showFinalMessage = () => {
 };
 
 startGame();
-
-// here
 
 playAgainBtnEl.addEventListener('click', () => {
   questions = initialState.questions;
