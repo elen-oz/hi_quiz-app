@@ -6,7 +6,7 @@
 // todo: 2) ability to chose amount of questions
 // todo: 2.а) save to localStotrage
 
-// todo: 3) add "Start Again" btn & connect with localStorage
+// todo: 3) add "Start Again" btn
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
@@ -103,7 +103,8 @@ const javascriptBtnEl = createElement(
 );
 
 wrapperEl.append(headerEl, mainEl, footerEl);
-headerEl.append(questionsNumberEl);
+// headerEl.append() добавить кнопку новой игры
+mainEl.append(questionsNumberEl);
 mainEl.append(containerEl);
 containerEl.append(gameMessageEl, gameScoreEl, gameBoardEl);
 gameBoardEl.append(questionEl, answersContainerEl);
@@ -182,8 +183,7 @@ function renderGeneralQuestion(question) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
-  // todo: fix this line: doesnt change depending on the correct answer
-  gameMessageEl.innerHTML = `Let's start 🤸`;
+  // gameMessageEl.innerHTML = `Let's start 🤸`;
 
   questionsNumberEl.textContent = `${currentQuestion + 1} / ${questionsNumber}`;
   headerEl.append(questionsNumberEl);
