@@ -29,8 +29,6 @@ import {
   removeEventListeners,
 } from './src/view.js';
 
-// todo: 2) ability to chose amount of questions
-
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
 const currentState = {
@@ -39,10 +37,6 @@ const currentState = {
   currentQuestionIndex: initialState.startQuestion,
   score: initialState.score,
 };
-
-// export const handleQuestionsHtmlClick = () => getTechQuestions('HTML');
-// export const handleQuestionsJavascriptClick = () =>
-//   getTechQuestions('JavaScript');
 
 export async function getTechQuestions(topic) {
   let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${currentState.questionsNumber}`;
@@ -90,8 +84,6 @@ const startGame = () => {
   techBtnEl.addEventListener('click', handleTechTopicClick);
 };
 
-startGame();
-
 playAgainBtnEl.addEventListener('click', () => {
   console.log('currentState.score', currentState.score);
 
@@ -108,3 +100,5 @@ playAgainBtnEl.addEventListener('click', () => {
 
   startGame();
 });
+
+startGame();
