@@ -3,26 +3,16 @@ import {
   initialState,
   handleDifficultyClick,
   handleTechTopicClick,
-  handleEasyClick,
-  handleMediumClick,
-  handleHardClick,
-  handleQuestionsHtmlClick,
-  handleQuestionsJavascriptClick,
 } from './src/utils.js';
 
 import {
   generalBtnEl,
   techBtnEl,
-  easyBtnEl,
-  mediumBtnEl,
-  hardBtnEl,
-  htmlBtnEl,
   playAgainBtnEl,
   gameMessageEl,
   gameScoreEl,
   questionEl,
   answersContainerEl,
-  javascriptBtnEl,
   renderStartGame,
   renderGeneralQuestion,
   renderTechQuestion,
@@ -50,10 +40,17 @@ export async function getTechQuestions(topic) {
 
   currentState.questions = data;
 
+  // const localStorageTechQuestion = localStorage.getItem('question');
+  // const localStorageTechState = localStorage.getItem('state');
+
+  // if (localStorageTechQuestion && localStorageTechState) {
+  //   renderTechQuestion(localStorageTechQuestion, localStorageTechState);
+  // } else {
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
     currentState
   );
+  // }
 }
 
 export async function getGeneralQuestions(difficulty) {
@@ -78,6 +75,30 @@ const startGame = () => {
   removeEventListeners();
   renderStartGame();
 
+  // ! ------ getlocalStorege ---------------
+  const localStorageTechQuestion = JSON.parse(
+    localStorage.getItem('techQuestion')
+  );
+  const localStorageTechState = JSON.parse(localStorage.getItem('techState'));
+
+  const localStorageGeneralQuestion = JSON.parse(
+    localStorage.getItem('generalQuestion')
+  );
+  const localStorageGeneralState = JSON.parse(
+    localStorage.getItem('generalState')
+  );
+
+  if (localStorageTechQuestion && localStorageTechState) {
+    renderTechQuestion(localStorageTechQuestion, localStorageTechState);
+    return;
+  } else if (localStorageGeneralQuestion && localStorageGeneralState) {
+    renderGeneralQuestion(
+      localStorageGeneralQuestion,
+      localStorageGeneralState
+    );
+    return;
+  }
+
   generalBtnEl.addEventListener('click', handleDifficultyClick);
   techBtnEl.addEventListener('click', handleTechTopicClick);
 };
@@ -93,6 +114,8 @@ playAgainBtnEl.addEventListener('click', () => {
   questionEl.classList.add('hide');
   gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
   gameScoreEl.textContent = '';
+
+  localStorage.clear();
 
   startGame();
 });

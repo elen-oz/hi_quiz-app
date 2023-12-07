@@ -122,6 +122,13 @@ export function renderGeneralQuestion(question, state) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
+  //! ------------------ setLocalStorage ------------------
+  localStorage.removeItem('techQuestion');
+  localStorage.removeItem('techState');
+
+  localStorage.setItem('generalQuestion', JSON.stringify(question));
+  localStorage.setItem('generalState', JSON.stringify(state));
+
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
   }`;
@@ -176,6 +183,15 @@ export function renderTechQuestion(question, state) {
   answersContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
+  //! ------------------ setLocalStorage ------------------
+  localStorage.removeItem('generalQuestion');
+  localStorage.removeItem('generalState');
+
+  localStorage.setItem('techQuestion', JSON.stringify(question));
+  localStorage.setItem('techState', JSON.stringify(state));
+
+  // console.log();
+
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
   }`;
@@ -225,7 +241,6 @@ export function removeEventListeners() {
 }
 
 export const pickDifficulty = () => {
-  // todo: LocalStorage
   renderPickDifficultyStage();
   removeEventListeners();
 
@@ -235,7 +250,6 @@ export const pickDifficulty = () => {
 };
 
 export const pickTechTopic = () => {
-  // todo: LocalStorage
   renderPickTechTopicStage();
   removeEventListeners();
 
