@@ -195,8 +195,8 @@ body {
   box-shadow: var(--accent-shadow);
 }
 .button:active {
-  transform: translate(4px, 4px);
   box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 .button--again {
@@ -206,6 +206,10 @@ body {
 .button--again:hover,
 .button--again:focus {
   box-shadow: var(--shadow);
+}
+.button--answer:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 .button--answer {
@@ -220,6 +224,10 @@ body {
   border-color: var(--main);
   border: 2px solid var(--dark-gray);
   box-shadow: var(--shadow);
+}
+.button--answer:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
 }
 
 /* todo: добавить окараску кнопки правильный ответ/неправильный с задержкой 2сек */
