@@ -6,6 +6,7 @@ export const initialState = {
   questionsNumber: 10,
   startQuestion: 0,
   score: 0,
+  isFirstQuestion: true,
 };
 
 export const handleDifficultyClick = () => pickDifficulty();

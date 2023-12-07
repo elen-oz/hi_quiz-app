@@ -29,6 +29,7 @@ export const currentState = {
   questionsNumber: initialState.questionsNumber,
   currentQuestionIndex: initialState.startQuestion,
   score: initialState.score,
+  isFirstQuestion: initialState.isFirstQuestion,
 };
 
 export async function getTechQuestions(topic) {
@@ -70,6 +71,8 @@ export async function getGeneralQuestions(difficulty) {
 const startGame = () => {
   removeEventListeners();
   renderStartGame();
+
+  currentState.isFirstQuestion = true;
 
   // ! ------ getlocalStorege ---------------
   const localStorageTechQuestion = JSON.parse(

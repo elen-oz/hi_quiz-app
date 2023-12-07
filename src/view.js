@@ -128,7 +128,10 @@ export function renderGeneralQuestion(question, state) {
   localStorage.setItem('generalQuestion', JSON.stringify(question));
   localStorage.setItem('generalState', JSON.stringify(state));
 
-  gameMessageEl.innerHTML = `Let's play 🎲`;
+  if (state.isFirstQuestion) {
+    gameMessageEl.innerHTML = `Let's play 🎲`;
+    state.isFirstQuestion = false;
+  }
 
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
@@ -189,6 +192,11 @@ export function renderTechQuestion(question, state) {
 
   localStorage.setItem('techQuestion', JSON.stringify(question));
   localStorage.setItem('techState', JSON.stringify(state));
+
+  if (state.isFirstQuestion) {
+    gameMessageEl.innerHTML = `Let's play 🎲`;
+    state.isFirstQuestion = false;
+  }
 
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
