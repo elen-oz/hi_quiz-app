@@ -128,6 +128,8 @@ export function renderGeneralQuestion(question, state) {
   localStorage.setItem('generalQuestion', JSON.stringify(question));
   localStorage.setItem('generalState', JSON.stringify(state));
 
+  gameMessageEl.innerHTML = `Let's play 🎲`;
+
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
   }`;

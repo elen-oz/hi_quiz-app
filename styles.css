@@ -180,6 +180,7 @@ body {
   border-radius: 4px;
   font-family: inherit;
   font-size: 1.1rem;
+  color: inherit;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s,
     transform 0.1s, box-shadow 0.1s;
   box-shadow: var(--shadow);
