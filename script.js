@@ -31,7 +31,7 @@ import {
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
-const currentState = {
+export const currentState = {
   questions: [...initialState.questions],
   questionsNumber: initialState.questionsNumber,
   currentQuestionIndex: initialState.startQuestion,

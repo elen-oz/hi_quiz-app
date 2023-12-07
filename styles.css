@@ -155,11 +155,6 @@ body {
   }
 }
 
-.container--final-message {
-  grid-template-columns: 1fr;
-  font-size: 2rem;
-}
-
 .container-buttons-selection {
   display: flex;
   flex-direction: column;

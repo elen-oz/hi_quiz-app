@@ -74,8 +74,6 @@ questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
 gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 
 export const renderStartGame = () => {
-  containerEl.classList.remove('container--final-message');
-
   mainEl.append(questionsNumberEl);
   mainEl.append(containerEl);
   containerEl.append(
@@ -150,7 +148,7 @@ export function renderGeneralQuestion(question, state) {
           state
         );
       } else {
-        showFinalMessage();
+        showFinalMessage(state);
       }
     });
 
@@ -158,14 +156,13 @@ export function renderGeneralQuestion(question, state) {
   });
 }
 
-export const showFinalMessage = () => {
-  // todo: change final message? add info
-
+export const showFinalMessage = (state) => {
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
   questionsNumberEl.textContent = 'COMPLETED';
-  questionEl.classList.add('hide');
+  questionEl.textContent = `You answered ${
+    (state.score / state.questionsNumber) * 100
+  }% of the questions correctly.`;
   answersContainerEl.textContent = '';
-  containerEl.classList.add('container--final-message');
 };
 
 export function renderTechQuestion(question, state) {
@@ -205,7 +202,7 @@ export function renderTechQuestion(question, state) {
             state
           );
         } else {
-          showFinalMessage();
+          showFinalMessage(state);
         }
       });
 
