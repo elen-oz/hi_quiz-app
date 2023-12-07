@@ -5,6 +5,9 @@
 }
 body {
   background-color: salmon;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -44,6 +47,9 @@ body {
   height: 70px;
   border: none;
   border-radius: 4px;
+  background-color: rgb(233, 211, 211);
+  font-weight: 100px;
+  
 }
 
 .button--again {
@@ -56,3 +62,19 @@ body {
 .result {
   padding: 1rem;
 }
+
+
+.footer {
+  background-color: #333; 
+  color: #fff;
+  border: 20px;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
