@@ -193,7 +193,6 @@ body {
   /* transition: 0.3s; */
   transition: background-color 0.3s, border-color 0.3s, color 0.3s,
     transform 0.1s, box-shadow 0.1s;
-
   box-shadow: var(--shadow);
 }
 .button:hover,
@@ -201,6 +200,7 @@ body {
   border-color: var(--accent);
   background-color: var(--accent);
   color: var(--card-bg);
+  border: 2px solid var(--dark-gray);
 }
 .button:active {
   transform: translate(4px, 4px);
@@ -222,6 +222,7 @@ body {
   background-color: var(--main);
   color: var(--card-bg);
   border-color: var(--main);
+  border: 2px solid var(--dark-gray);
 }
 
 /* todo: добавить окараску кнопки правильный ответ/неправильный с задержкой 2сек */
