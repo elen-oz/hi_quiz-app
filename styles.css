@@ -27,6 +27,11 @@ body {
   justify-content: space-between;
   width: 100%;
   height: 100vh;
+
+  /* background-image: url('./src/img/salmon.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--main); */
 }
 
 .header,
@@ -126,7 +131,7 @@ body {
 
 .container {
   margin: 0 auto;
-  max-width: 50rem;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
@@ -193,6 +198,10 @@ body {
   background-color: var(--accent);
   color: var(--card-bg);
 }
+.button:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
 
 .button--again {
   margin: 1rem;
@@ -207,4 +216,36 @@ body {
   background-color: var(--main);
   color: var(--card-bg);
   border-color: var(--main);
+}
+
+/* todo: добавить окараску кнопки правильный ответ/неправильный с задержкой 2сек */
+.correct-answer {
+  background-color: lightgreen;
+}
+.wrong-answer {
+  background-color: crimson;
+}
+
+@keyframes animatedBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(
+    300deg,
+    var(--accent),
+    var(--main),
+    var(--main),
+    var(--accent)
+  );
+  background-size: 400% 300%;
+  animation: animatedBackground 15s ease infinite;
 }

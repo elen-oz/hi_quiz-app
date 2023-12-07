@@ -49,7 +49,6 @@ export async function getTechQuestions(topic) {
   let data = await response.json();
 
   currentState.questions = data;
-  console.log(currentState.questions);
 
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -68,7 +67,6 @@ export async function getGeneralQuestions(difficulty) {
   let data = await response.json();
 
   currentState.questions = data.results;
-  console.log(currentState.questions);
 
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -85,8 +83,6 @@ const startGame = () => {
 };
 
 playAgainBtnEl.addEventListener('click', () => {
-  console.log('currentState.score', currentState.score);
-
   currentState.questions = [...initialState.questions];
   currentState.questionsNumber = initialState.questionsNumber;
   currentState.currentQuestionIndex = initialState.startQuestion;

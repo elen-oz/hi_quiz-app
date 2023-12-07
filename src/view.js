@@ -61,9 +61,12 @@ export const javascriptBtnEl = createElement(
   'JavaScript'
 );
 
+const appEl = document.querySelector('#app');
+appEl.classList.add('animated-gradient');
+
 wrapperEl.append(headerEl, mainEl, footerEl);
 headerEl.append(playAgainBtnEl);
-document.querySelector('#app').append(wrapperEl);
+appEl.append(wrapperEl);
 
 footerEl.innerHTML =
   '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
