@@ -6,6 +6,8 @@ import {
   handleHardClick,
   handleQuestionsHtmlClick,
   handleQuestionsJavascriptClick,
+  getRandomEmoji,
+  pickFinalEmoji,
 } from './utils.js';
 
 export const createElement = (tag, classNames, textContent) => {
@@ -106,10 +108,10 @@ export const renderPickTechTopicStage = () => {
 
 export const renderMessageAndScore = (isTrue, score) => {
   if (isTrue) {
-    gameMessageEl.innerHTML = `Correct! 🎯`;
+    gameMessageEl.innerHTML = `Correct! ${getRandomEmoji(1)}`;
     gameScoreEl.textContent = `Score: ${score}`;
   } else {
-    gameMessageEl.innerHTML = `Nope 🦧`;
+    gameMessageEl.innerHTML = `Nope ${getRandomEmoji(2)}`;
     gameScoreEl.textContent = `Score: ${score}`;
   }
 };
@@ -157,11 +159,12 @@ export function renderGeneralQuestion(question, state) {
 }
 
 export const showFinalMessage = (state) => {
+  const result = (state.score / state.questionsNumber) * 100;
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
   questionsNumberEl.textContent = 'COMPLETED';
-  questionEl.textContent = `You answered ${
-    (state.score / state.questionsNumber) * 100
-  }% of the questions correctly.`;
+  questionEl.innerHTML = `You answered ${result}% of the questions correctly.<br>${pickFinalEmoji(
+    result
+  )}`;
   answersContainerEl.textContent = '';
 };
 

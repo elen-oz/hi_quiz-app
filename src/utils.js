@@ -17,3 +17,29 @@ export const handleHardClick = () => getGeneralQuestions('hard');
 export const handleQuestionsHtmlClick = () => getTechQuestions('HTML');
 export const handleQuestionsJavascriptClick = () =>
   getTechQuestions('JavaScript');
+
+const emoji = {
+  0: ['🎖️', '🥇', '💫', '🌟', '🏆', '💥', '🏅', '👑', '🥰', '🥳'],
+  1: ['😊', '👌', '🤘', '🤟', '👍🏻', '🤌', '🤙🏼', '✌️', '😌'],
+  2: ['😬', '🤔', '😖', '🥺', '🥴', '😵‍💫', '🤏🏻'],
+  3: ['💔', '😫', '😞', '😣', '😥', '😔', '😟', '😧', '🤧', '🥺'],
+};
+
+export function getRandomEmoji(key) {
+  const emojiArray = emoji[key];
+  const randomIndex = Math.floor(Math.random() * emojiArray.length);
+
+  return emojiArray[randomIndex];
+}
+
+export const pickFinalEmoji = (result) => {
+  if (result < 21) {
+    return getRandomEmoji(3);
+  } else if (result < 61) {
+    return getRandomEmoji(2);
+  } else if (result < 91) {
+    return getRandomEmoji(1);
+  } else {
+    return generalBtnEl(0);
+  }
+};
