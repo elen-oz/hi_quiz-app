@@ -6,6 +6,7 @@
   --dark-gray: #27272a;
 
   --shadow: 3px 3px 0px 0px rgba(72, 72, 72, 0.75);
+  --accent-shadow: 3px 3px 0px 0px #fa8072;
 }
 
 * {
@@ -191,6 +192,7 @@ body {
   background-color: var(--accent);
   color: var(--card-bg);
   border: 2px solid var(--dark-gray);
+  box-shadow: var(--accent-shadow);
 }
 .button:active {
   transform: translate(4px, 4px);
@@ -200,6 +202,10 @@ body {
 .button--again {
   margin: 1rem;
   width: fit-content;
+}
+.button--again:hover,
+.button--again:focus {
+  box-shadow: var(--shadow);
 }
 
 .button--answer {
@@ -213,6 +219,7 @@ body {
   color: var(--card-bg);
   border-color: var(--main);
   border: 2px solid var(--dark-gray);
+  box-shadow: var(--shadow);
 }
 
 /* todo: добавить окараску кнопки правильный ответ/неправильный с задержкой 2сек */
