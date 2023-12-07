@@ -134,7 +134,8 @@ export function renderGeneralQuestion(question, state) {
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
-    const answerEl = createElement('button', 'button button--answer', answer);
+    const answerEl = createElement('button', 'button button--answer');
+    answerEl.innerHTML = answer;
 
     answerEl.addEventListener('click', function () {
       let isCorrect = answer === correctAnswer;
