@@ -122,7 +122,6 @@ export function renderGeneralQuestion(question, state) {
   containerTechBtns.remove();
   answersContainerEl.innerHTML = '';
 
-  //! ------------------ setLocalStorage ------------------
   localStorage.removeItem('techQuestion');
   localStorage.removeItem('techState');
 
@@ -183,14 +182,11 @@ export function renderTechQuestion(question, state) {
   answersContainerEl.innerHTML = '';
   questionsNumberEl.innerHTML = '';
 
-  //! ------------------ setLocalStorage ------------------
   localStorage.removeItem('generalQuestion');
   localStorage.removeItem('generalState');
 
   localStorage.setItem('techQuestion', JSON.stringify(question));
   localStorage.setItem('techState', JSON.stringify(state));
-
-  // console.log();
 
   questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
     state.questionsNumber
