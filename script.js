@@ -20,6 +20,8 @@ import {
   renderGeneralQuestion,
   renderTechQuestion,
   removeEventListeners,
+  containerDifficultyBtns,
+  containerTechBtns,
 } from './src/view.js';
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -107,6 +109,7 @@ playAgainBtnEl.addEventListener('click', () => {
   currentState.questionsNumber = initialState.questionsNumber;
   currentState.currentQuestionIndex = initialState.startQuestion;
   currentState.score = initialState.score;
+  currentState.isFirstQuestion = true;
 
   answersContainerEl.innerHTML = '';
   questionEl.innerHTML = '';
@@ -114,6 +117,9 @@ playAgainBtnEl.addEventListener('click', () => {
   gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
   gameScoreEl.textContent = '';
   // containerNewGameBtnEl = '';
+
+  containerDifficultyBtns.remove();
+  containerTechBtns.remove();
 
   localStorage.clear();
 
