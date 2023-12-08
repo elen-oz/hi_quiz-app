@@ -7,6 +7,11 @@ export const initialState = {
   startQuestion: 0,
   score: 0,
   isFirstQuestion: true,
+  gameState: {
+    start: 'start',
+    progress: 'progress',
+    end: 'end',
+  },
 };
 
 export const handleDifficultyClick = () => pickDifficulty();

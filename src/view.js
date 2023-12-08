@@ -8,6 +8,7 @@ import {
   handleQuestionsJavascriptClick,
   getRandomEmoji,
   pickFinalEmoji,
+  initialState,
 } from './utils.js';
 
 export const createElement = (tag, classNames, textContent) => {
@@ -72,7 +73,27 @@ appEl.append(wrapperEl);
 
 footerEl.innerHTML =
   '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
-questionsNumberEl.textContent = `Welcome! 🐟 Let's Start!`;
+
+const getHeaderMessage = (status) => {
+  switch (status.gameState) {
+    case 'start':
+      questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
+      gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
+      break;
+    case 'progress':
+      gameMessageEl.innerHTML = `${state.currentQuestionIndex + 1} / ${
+        state.questionsNumber
+      }`;
+      break;
+    case 'end':
+      questionsNumberEl.textContent = 'COMPLETED';
+      break;
+    default:
+      return;
+  }
+};
+
+questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
 gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
 
 export const renderStartGame = () => {
@@ -128,6 +149,8 @@ export function renderGeneralQuestion(question, state) {
   localStorage.setItem('generalQuestion', JSON.stringify(question));
   localStorage.setItem('generalState', JSON.stringify(state));
 
+  currentState.gameState = initialState.gameState.progress;
+
   if (state.isFirstQuestion) {
     gameMessageEl.innerHTML = `Let's play 🎲`;
     state.isFirstQuestion = false;
@@ -161,6 +184,7 @@ export function renderGeneralQuestion(question, state) {
           state
         );
       } else {
+        state.gameState = initialState.gameState.end;
         showFinalMessage(state);
       }
     });
@@ -172,7 +196,9 @@ export function renderGeneralQuestion(question, state) {
 export const showFinalMessage = (state) => {
   const result = (state.score / state.questionsNumber) * 100;
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
-  questionsNumberEl.textContent = 'COMPLETED';
+  // questionsNumberEl.textContent = 'COMPLETED';
+  // !------ перед этим поменять статус игры
+  getHeaderMessage(state);
   questionEl.innerHTML = `You answered ${result}% of the questions correctly.<br>${pickFinalEmoji(
     result
   )}`;
@@ -192,6 +218,9 @@ export function renderTechQuestion(question, state) {
 
   localStorage.setItem('techQuestion', JSON.stringify(question));
   localStorage.setItem('techState', JSON.stringify(state));
+
+  // ! -------
+  currentState.gameState = initialState.gameState.progress;
 
   if (state.isFirstQuestion) {
     gameMessageEl.innerHTML = `Let's play 🎲`;

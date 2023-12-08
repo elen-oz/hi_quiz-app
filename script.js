@@ -32,6 +32,7 @@ export const currentState = {
   currentQuestionIndex: initialState.startQuestion,
   score: initialState.score,
   isFirstQuestion: initialState.isFirstQuestion,
+  gameState: initialState.gameState.start,
 };
 
 export async function getTechQuestions(topic) {
@@ -76,7 +77,9 @@ const startGame = () => {
 
   currentState.isFirstQuestion = true;
 
-  // ! ------ getlocalStorege ---------------
+  // ! ----- какой статус?? -------------
+  currentState.gameState = initialState.gameState.start;
+
   const localStorageTechQuestion = JSON.parse(
     localStorage.getItem('techQuestion')
   );
@@ -110,6 +113,7 @@ playAgainBtnEl.addEventListener('click', () => {
   currentState.currentQuestionIndex = initialState.startQuestion;
   currentState.score = initialState.score;
   currentState.isFirstQuestion = true;
+  currentState.gameState = initialState.gameState.start;
 
   answersContainerEl.innerHTML = '';
   questionEl.innerHTML = '';

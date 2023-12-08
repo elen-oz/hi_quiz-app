@@ -1,7 +1,8 @@
 :root {
   --main: #fa8072;
   --card-bg: #f4f4f5;
-  --accent: #1e90ff;
+  /* --accent: #1e90ff; */
+  --accent: #2dd4bf;
   --gray: #a1a1aa;
   --dark-gray: #27272a;
 
@@ -88,7 +89,7 @@ body {
   padding: 1rem 0;
   margin: 0 0.5rem;
   border-radius: 4px;
-  border: 2px dashed var(--gray);
+  border: 2px dotted var(--gray);
 }
 
 .question {
