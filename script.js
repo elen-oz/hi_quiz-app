@@ -5,15 +5,22 @@ let questions;
 let questionsNumber = 10;
 let currentQuestion = 0;
 let rightAnswers = 0;
+let contributors = ['Elena', 'Osman', 'Jordan'];
 
 // Find the HTML element with the ID 'app' to use it in the script.
 let appEl = document.querySelector('#app');
 
 // Create a new 'div' element for the container and add it to the 'app' element.
 let containerEl = document.createElement('div');
-containerEl.setAttribute('id', 'container');
+// containerEl.setAttribute('id', 'container');
 containerEl.classList.add('container');
 appEl.append(containerEl);
+
+// footer
+let footerEl = document.createElement('footer');
+footerEl.classList.add('footer');
+footerEl.textContent = `${contributors.join(' | ')}`;
+appEl.append(footerEl);
 
 // Create a button to start the quiz again and add it to the container.
 let startAgainBtnEl = document.createElement('button');
@@ -42,7 +49,7 @@ containerEl.append(resultEl);
 
 // questions from an API and display the first question.
 async function getQuestion() {
-  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=9&type=multiple`;
+  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=26&type=multiple`;
   let response = await fetch(url);
   let data = await response.json();
 
