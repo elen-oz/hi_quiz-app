@@ -22,6 +22,7 @@ import {
   removeEventListeners,
   containerDifficultyBtns,
   containerTechBtns,
+  getHeaderMessage,
 } from './src/view.js';
 
 const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -76,9 +77,11 @@ const startGame = () => {
   renderStartGame();
 
   currentState.isFirstQuestion = true;
-
-  // ! ----- какой статус?? -------------
   currentState.gameState = initialState.gameState.start;
+
+  console.log('game started: gameState: ', currentState.gameState);
+
+  getHeaderMessage(currentState);
 
   const localStorageTechQuestion = JSON.parse(
     localStorage.getItem('techQuestion')
