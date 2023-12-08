@@ -93,9 +93,6 @@ export const getHeaderMessage = (state) => {
   }
 };
 
-questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
-gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
-
 export const renderStartGame = () => {
   mainEl.append(questionsNumberEl);
   mainEl.append(containerEl);
@@ -137,7 +134,7 @@ export const renderMessageAndScore = (isTrue, score) => {
   }
 };
 
-export function renderGeneralQuestion(question, state) {
+const renderQuestion = (question, state) => {
   containerDifficultyBtns.remove();
   containerNewGameBtnEl.remove();
   containerTechBtns.remove();
@@ -159,9 +156,40 @@ export function renderGeneralQuestion(question, state) {
 
   questionEl.classList.remove('hide');
   questionEl.innerHTML = question.question;
+};
+
+export function renderGeneralQuestion(question, state) {
+  // containerDifficultyBtns.remove();
+  // containerNewGameBtnEl.remove();
+  // containerTechBtns.remove();
+  // answersContainerEl.innerHTML = '';
+  // state.gameState = initialState.gameState.progress;
+
+  // localStorage.removeItem('techQuestion');
+  // localStorage.removeItem('techState');
+
+  // localStorage.setItem('generalQuestion', JSON.stringify(question));
+  // localStorage.setItem('generalState', JSON.stringify(state));
+
+  // if (state.isFirstQuestion) {
+  //   gameMessageEl.innerHTML = `Let's play 🎲`;
+  //   state.isFirstQuestion = false;
+  // }
+
+  // getHeaderMessage(state);
+
+  // questionEl.classList.remove('hide');
+  // questionEl.innerHTML = question.question;
+
+  renderQuestion(question, state);
 
   let correctAnswer = question.correct_answer;
-  let answers = question.incorrect_answers.concat([question.correct_answer]);
+  // let answers = question.incorrect_answers.concat([question.correct_answer]);
+  let answers = [
+    ...(question.incorrect_answers || []),
+    question.correct_answer,
+  ].filter(Boolean);
+
   answers = answers.sort(() => 0.5 - Math.random());
 
   answers.forEach((answer) => {
@@ -203,30 +231,32 @@ export const showFinalMessage = (state) => {
 };
 
 export function renderTechQuestion(question, state) {
-  containerDifficultyBtns.remove();
-  containerTechBtns.remove();
-  containerNewGameBtnEl.remove();
+  // containerDifficultyBtns.remove();
+  // containerTechBtns.remove();
+  // containerNewGameBtnEl.remove();
 
-  answersContainerEl.innerHTML = '';
-  questionsNumberEl.innerHTML = '';
+  // answersContainerEl.innerHTML = '';
+  // questionsNumberEl.innerHTML = '';
 
-  localStorage.removeItem('generalQuestion');
-  localStorage.removeItem('generalState');
+  // localStorage.removeItem('generalQuestion');
+  // localStorage.removeItem('generalState');
 
-  localStorage.setItem('techQuestion', JSON.stringify(question));
-  localStorage.setItem('techState', JSON.stringify(state));
+  // localStorage.setItem('techQuestion', JSON.stringify(question));
+  // localStorage.setItem('techState', JSON.stringify(state));
 
-  currentState.gameState = initialState.gameState.progress;
+  // state.gameState = initialState.gameState.progress;
 
-  if (state.isFirstQuestion) {
-    gameMessageEl.innerHTML = `Let's play 🎲`;
-    state.isFirstQuestion = false;
-  }
+  // if (state.isFirstQuestion) {
+  //   gameMessageEl.innerHTML = `Let's play 🎲`;
+  //   state.isFirstQuestion = false;
+  // }
 
-  getHeaderMessage(state);
+  // getHeaderMessage(state);
 
-  questionEl.classList.remove('hide');
-  questionEl.textContent = question.question;
+  // questionEl.classList.remove('hide');
+  // questionEl.textContent = question.question;
+
+  renderQuestion(question, state);
 
   let answers = question.answers;
   let correctAnswers = question.correct_answers;

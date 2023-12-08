@@ -46,6 +46,8 @@ export async function getTechQuestions(topic) {
 
   currentState.questions = data;
 
+  console.log(currentState.questions);
+
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
     currentState
@@ -63,6 +65,8 @@ export async function getGeneralQuestions(difficulty) {
   let data = await response.json();
 
   currentState.questions = data.results;
+
+  console.log(currentState.questions);
 
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
