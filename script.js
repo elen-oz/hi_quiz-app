@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: fix bug: while there is selection of difficulty/tech topics -> if press 'restart btn' container with selection buttons remain and adds general/tech buttons
-
 import {
   initialState,
   handleDifficultyClick,
@@ -79,8 +77,6 @@ const startGame = () => {
   currentState.isFirstQuestion = true;
   currentState.gameState = initialState.gameState.start;
 
-  console.log('game started: gameState: ', currentState.gameState);
-
   getHeaderMessage(currentState);
 
   const localStorageTechQuestion = JSON.parse(
@@ -120,15 +116,14 @@ playAgainBtnEl.addEventListener('click', () => {
 
   answersContainerEl.innerHTML = '';
   questionEl.innerHTML = '';
-  questionEl.classList.add('hide');
-  gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
   gameScoreEl.textContent = '';
-  // containerNewGameBtnEl = '';
-
   containerDifficultyBtns.remove();
   containerTechBtns.remove();
+  questionEl.classList.add('hide');
 
   localStorage.clear();
+
+  gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
 
   startGame();
 });

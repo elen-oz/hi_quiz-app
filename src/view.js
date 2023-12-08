@@ -75,8 +75,6 @@ footerEl.innerHTML =
   '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
 
 export const getHeaderMessage = (state) => {
-  console.log('inside HEADER MESSAGE: state.gameState:', state.gameState);
-
   switch (state.gameState) {
     case 'start':
       questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
@@ -157,8 +155,6 @@ export function renderGeneralQuestion(question, state) {
     state.isFirstQuestion = false;
   }
 
-  console.log('inside render general function: gameState: ', state.gameState);
-
   getHeaderMessage(state);
 
   questionEl.classList.remove('hide');
@@ -195,16 +191,14 @@ export function renderGeneralQuestion(question, state) {
 }
 
 export const showFinalMessage = (state) => {
-  console.log('inside showFinalMessage: gameState: ', state.gameState);
+  getHeaderMessage(state);
 
   const result = (state.score / state.questionsNumber) * 100;
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
-  // questionsNumberEl.textContent = 'COMPLETED';
-  // !------ перед этим поменять статус игры
-  getHeaderMessage(state);
   questionEl.innerHTML = `You answered ${result}% of the questions correctly.<br>${pickFinalEmoji(
     result
   )}`;
+
   answersContainerEl.textContent = '';
 };
 
@@ -222,7 +216,6 @@ export function renderTechQuestion(question, state) {
   localStorage.setItem('techQuestion', JSON.stringify(question));
   localStorage.setItem('techState', JSON.stringify(state));
 
-  // ! -------
   currentState.gameState = initialState.gameState.progress;
 
   if (state.isFirstQuestion) {
@@ -230,13 +223,7 @@ export function renderTechQuestion(question, state) {
     state.isFirstQuestion = false;
   }
 
-  console.log('inside render tech function: gameState: ', state.gameState);
-
   getHeaderMessage(state);
-
-  questionsNumberEl.textContent = `${state.currentQuestionIndex + 1} / ${
-    state.questionsNumber
-  }`;
 
   questionEl.classList.remove('hide');
   questionEl.textContent = question.question;
