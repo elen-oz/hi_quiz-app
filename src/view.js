@@ -159,28 +159,6 @@ const renderQuestion = (question, state) => {
 };
 
 export function renderGeneralQuestion(question, state) {
-  // containerDifficultyBtns.remove();
-  // containerNewGameBtnEl.remove();
-  // containerTechBtns.remove();
-  // answersContainerEl.innerHTML = '';
-  // state.gameState = initialState.gameState.progress;
-
-  // localStorage.removeItem('techQuestion');
-  // localStorage.removeItem('techState');
-
-  // localStorage.setItem('generalQuestion', JSON.stringify(question));
-  // localStorage.setItem('generalState', JSON.stringify(state));
-
-  // if (state.isFirstQuestion) {
-  //   gameMessageEl.innerHTML = `Let's play 🎲`;
-  //   state.isFirstQuestion = false;
-  // }
-
-  // getHeaderMessage(state);
-
-  // questionEl.classList.remove('hide');
-  // questionEl.innerHTML = question.question;
-
   renderQuestion(question, state);
 
   let correctAnswer = question.correct_answer;
@@ -231,31 +209,6 @@ export const showFinalMessage = (state) => {
 };
 
 export function renderTechQuestion(question, state) {
-  // containerDifficultyBtns.remove();
-  // containerTechBtns.remove();
-  // containerNewGameBtnEl.remove();
-
-  // answersContainerEl.innerHTML = '';
-  // questionsNumberEl.innerHTML = '';
-
-  // localStorage.removeItem('generalQuestion');
-  // localStorage.removeItem('generalState');
-
-  // localStorage.setItem('techQuestion', JSON.stringify(question));
-  // localStorage.setItem('techState', JSON.stringify(state));
-
-  // state.gameState = initialState.gameState.progress;
-
-  // if (state.isFirstQuestion) {
-  //   gameMessageEl.innerHTML = `Let's play 🎲`;
-  //   state.isFirstQuestion = false;
-  // }
-
-  // getHeaderMessage(state);
-
-  // questionEl.classList.remove('hide');
-  // questionEl.textContent = question.question;
-
   renderQuestion(question, state);
 
   let answers = question.answers;
