@@ -9,9 +9,38 @@ import {
   getRandomEmoji,
   pickFinalEmoji,
   initialState,
-} from './utils.js';
+} from './utils';
 
-export const createElement = (tag, classNames, textContent) => {
+interface QuestionGeneral {
+  category: string;
+  correct_answer: string;
+  difficulty: string;
+  incorrect_answers: string[];
+  question: string;
+  type: string;
+}
+interface QuestionTech {
+  answers: any;
+  category: string;
+  correct_answer: string;
+  correct_answers: any;
+  question: string;
+}
+
+interface State {
+  questions: any[];
+  questionNumber: number;
+  currentQuestionIndex: number;
+  score: number;
+  isFirstQuestion: boolean;
+  gameState: string;
+}
+
+export const createElement = (
+  tag: string,
+  classNames?: string,
+  textContent?: string
+): HTMLElement => {
   const element = document.createElement(tag);
   if (classNames) {
     element.classList.add(...classNames.split(' '));
@@ -79,7 +108,7 @@ headerEl.append(playAgainBtnEl);
 footerEl.innerHTML =
   '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
 
-export const getHeaderMessage = (state) => {
+export const getHeaderMessage = (state: State): void => {
   switch (state.gameState) {
     case 'start':
       questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
@@ -98,7 +127,7 @@ export const getHeaderMessage = (state) => {
   }
 };
 
-export const renderStartGame = () => {
+export const renderStartGame = (): void => {
   mainEl.append(questionsNumberEl);
   mainEl.append(containerEl);
   containerEl.append(
@@ -113,7 +142,7 @@ export const renderStartGame = () => {
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
 };
 
-export const renderPickDifficultyStage = () => {
+export const renderPickDifficultyStage = (): void => {
   containerNewGameBtnEl.remove();
 
   gameMessageEl.innerHTML = `What level of difficulty? ⚔️`;
@@ -122,14 +151,14 @@ export const renderPickDifficultyStage = () => {
   containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
 };
 
-export const renderPickTechTopicStage = () => {
+export const renderPickTechTopicStage = (): void => {
   containerNewGameBtnEl.remove();
 
   gameBoardEl.append(containerTechBtns);
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
 };
 
-export const renderMessageAndScore = (isTrue, score) => {
+export const renderMessageAndScore = (isTrue: boolean, score: number): void => {
   if (isTrue) {
     gameMessageEl.innerHTML = `Correct! ${getRandomEmoji(1)}`;
     gameScoreEl.textContent = `Score: ${score}`;
@@ -139,7 +168,7 @@ export const renderMessageAndScore = (isTrue, score) => {
   }
 };
 
-const renderQuestion = (question, state) => {
+const renderQuestion = (question: any, state: State) => {
   containerDifficultyBtns.remove();
   containerNewGameBtnEl.remove();
   containerTechBtns.remove();
@@ -163,7 +192,10 @@ const renderQuestion = (question, state) => {
   questionEl.innerHTML = question.question;
 };
 
-export function renderGeneralQuestion(question, state) {
+export function renderGeneralQuestion(
+  question: QuestionGeneral,
+  state: State
+): void {
   renderQuestion(question, state);
 
   let correctAnswer = question.correct_answer;
@@ -201,7 +233,7 @@ export function renderGeneralQuestion(question, state) {
   });
 }
 
-export const showFinalMessage = (state) => {
+export const showFinalMessage = (state: State): void => {
   getHeaderMessage(state);
 
   const result = (state.score / state.questionNumber) * 100;
@@ -213,7 +245,7 @@ export const showFinalMessage = (state) => {
   answersContainerEl.textContent = '';
 };
 
-export function renderTechQuestion(question, state) {
+export function renderTechQuestion(question: QuestionTech, state: State): void {
   renderQuestion(question, state);
 
   let answers = question.answers;
@@ -247,7 +279,7 @@ export function renderTechQuestion(question, state) {
   });
 }
 
-export function removeEventListeners() {
+export function removeEventListeners(): void {
   generalBtnEl.addEventListener('click', handleDifficultyClick);
   techBtnEl.addEventListener('click', handleTechTopicClick);
   easyBtnEl.removeEventListener('click', handleEasyClick);
@@ -257,7 +289,7 @@ export function removeEventListeners() {
   javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
 }
 
-export const pickDifficulty = () => {
+export const pickDifficulty = (): void => {
   renderPickDifficultyStage();
   removeEventListeners();
 
@@ -266,7 +298,7 @@ export const pickDifficulty = () => {
   hardBtnEl.addEventListener('click', handleHardClick);
 };
 
-export const pickTechTopic = () => {
+export const pickTechTopic = (): void => {
   renderPickTechTopicStage();
   removeEventListeners();
 

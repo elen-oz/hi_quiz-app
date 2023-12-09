@@ -3,7 +3,7 @@ import { getTechQuestions, getGeneralQuestions } from '../script.js';
 
 export const initialState = {
   questions: [],
-  questionsNumber: 10,
+  questionNumber: 10,
   startQuestion: 0,
   score: 0,
   isFirstQuestion: true,

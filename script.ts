@@ -1,10 +1,8 @@
-'use strict';
-
 import {
   initialState,
   handleDifficultyClick,
   handleTechTopicClick,
-} from './src/utils.js';
+} from './src/utils';
 
 import {
   generalBtnEl,
@@ -21,11 +19,20 @@ import {
   containerDifficultyBtns,
   containerTechBtns,
   getHeaderMessage,
-} from './src/view.js';
+} from './src/view';
 
-const API_KEY = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
+const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
-export const currentState = {
+interface CurrentState {
+  questions: any[];
+  questionNumber: number;
+  currentQuestionIndex: number;
+  score: number;
+  isFirstQuestion: boolean;
+  gameState: string;
+}
+
+export const currentState: CurrentState = {
   questions: [...initialState.questions],
   questionNumber: initialState.questionNumber,
   currentQuestionIndex: initialState.startQuestion,
@@ -34,8 +41,8 @@ export const currentState = {
   gameState: initialState.gameState.start,
 };
 
-export async function getTechQuestions(topic) {
-  let url = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${currentState.questionNumber}`;
+export async function getTechQuestions(topic: string): Promise<void> {
+  let url: string = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${currentState.questionNumber}`;
   let response = await fetch(url);
 
   if (!response.ok) {
@@ -54,7 +61,7 @@ export async function getTechQuestions(topic) {
   );
 }
 
-export async function getGeneralQuestions(difficulty) {
+export async function getGeneralQuestions(difficulty: string): Promise<void> {
   let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=9&difficulty=${difficulty}&type=multiple`;
   let response = await fetch(url);
 
@@ -74,7 +81,7 @@ export async function getGeneralQuestions(difficulty) {
   );
 }
 
-const startGame = () => {
+const startGame: () => void = () => {
   removeEventListeners();
   renderStartGame();
 
@@ -83,17 +90,30 @@ const startGame = () => {
 
   getHeaderMessage(currentState);
 
-  const localStorageTechQuestion = JSON.parse(
-    localStorage.getItem('techQuestion')
-  );
-  const localStorageTechState = JSON.parse(localStorage.getItem('techState'));
+  const localStorageTechQuestionString = localStorage.getItem('techQuestion');
+  const localStorageTechQuestion =
+    localStorageTechQuestionString !== null
+      ? JSON.parse(localStorageTechQuestionString)
+      : null;
 
-  const localStorageGeneralQuestion = JSON.parse(
-    localStorage.getItem('generalQuestion')
-  );
-  const localStorageGeneralState = JSON.parse(
-    localStorage.getItem('generalState')
-  );
+  const localStorageTechStateString = localStorage.getItem('techState');
+  const localStorageTechState =
+    localStorageTechStateString !== null
+      ? JSON.parse(localStorageTechStateString)
+      : null;
+
+  const localStorageGeneralQuestionString =
+    localStorage.getItem('generalQuestion');
+  const localStorageGeneralQuestion =
+    localStorageGeneralQuestionString !== null
+      ? JSON.parse(localStorageGeneralQuestionString)
+      : null;
+
+  const localStorageGeneralStateString = localStorage.getItem('generalState');
+  const localStorageGeneralState =
+    localStorageGeneralStateString !== null
+      ? JSON.parse(localStorageGeneralStateString)
+      : null;
 
   if (localStorageTechQuestion && localStorageTechState) {
     renderTechQuestion(localStorageTechQuestion, localStorageTechState);
