@@ -20,6 +20,8 @@ dist/
 .env.production.local
 .parcel-cache
 .vscode
+.cache
+
 
 # logs
 npm-debug.log*
