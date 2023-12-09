@@ -92,6 +92,16 @@ export const javascriptBtnEl = createElement(
   'button button-tech',
   'JavaScript'
 );
+// ! --------------------- THOMAS ------------------------
+const thomasContainerEl = createElement(
+  'div',
+  'container-thomas-on-side animate__animated animate__rollIn'
+);
+const thomasOnSideEl = createElement('div', 'image');
+
+export const closeSignThomasOnSideEl = createElement('button', 'close-sign');
+closeSignThomasOnSideEl.textContent = 'X';
+closeSignThomasOnSideEl.title = 'Shoo!';
 
 const appEl = document.querySelector('#app');
 
@@ -206,6 +216,17 @@ export const showFinalMessage = (state: State): void => {
 
   answersContainerEl.textContent = '';
 };
+// ! ---------------- THOMAS ------------------
+export const showThomas = () => {
+  containerEl.append(thomasContainerEl);
+  thomasContainerEl.append(thomasOnSideEl);
+  thomasContainerEl.append(closeSignThomasOnSideEl);
+};
+
+export const removeThomasOnSide = () => {
+  closeSignThomasOnSideEl.remove();
+  thomasOnSideEl.remove();
+};
 
 const renderQuestion = (question: any, state: State) => {
   containerDifficultyBtns.remove();
@@ -229,9 +250,6 @@ export function renderGeneralQuestion(
   question: QuestionGeneral,
   state: State
 ): void {
-  // localStorage.removeItem('techQuestion');
-  // localStorage.removeItem('techState');
-
   localStorage.setItem('question', JSON.stringify(question));
   localStorage.setItem('state', JSON.stringify(state));
 

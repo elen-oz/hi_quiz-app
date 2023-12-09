@@ -14,5 +14,8 @@
     "parcel": "^2.10.3",
     "postcss": "^8.4.32",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1"
   }
 }

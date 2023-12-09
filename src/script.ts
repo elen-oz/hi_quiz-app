@@ -19,6 +19,9 @@ import {
   containerDifficultyBtns,
   containerTechBtns,
   getHeaderMessage,
+  showThomas,
+  closeSignThomasOnSideEl,
+  removeThomasOnSide,
 } from './view';
 
 const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -137,5 +140,9 @@ playAgainBtnEl.addEventListener('click', () => {
 
   startGame();
 });
+
+closeSignThomasOnSideEl.addEventListener('click', removeThomasOnSide);
+
+showThomas();
 
 startGame();
