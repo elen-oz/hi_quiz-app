@@ -175,12 +175,6 @@ const renderQuestion = (question: any, state: State) => {
   answersContainerEl.innerHTML = '';
   state.gameState = initialState.gameState.progress;
 
-  localStorage.removeItem('techQuestion');
-  localStorage.removeItem('techState');
-
-  localStorage.setItem('generalQuestion', JSON.stringify(question));
-  localStorage.setItem('generalState', JSON.stringify(state));
-
   if (state.isFirstQuestion) {
     gameMessageEl.innerHTML = `Let's play 🎲`;
     state.isFirstQuestion = false;
@@ -196,6 +190,12 @@ export function renderGeneralQuestion(
   question: QuestionGeneral,
   state: State
 ): void {
+  localStorage.removeItem('techQuestion');
+  localStorage.removeItem('techState');
+
+  localStorage.setItem('generalQuestion', JSON.stringify(question));
+  localStorage.setItem('generalState', JSON.stringify(state));
+
   renderQuestion(question, state);
 
   let correctAnswer = question.correct_answer;
@@ -246,6 +246,12 @@ export const showFinalMessage = (state: State): void => {
 };
 
 export function renderTechQuestion(question: QuestionTech, state: State): void {
+  localStorage.removeItem('generalQuestion');
+  localStorage.removeItem('generalState');
+
+  localStorage.setItem('techQuestion', JSON.stringify(question));
+  localStorage.setItem('techState', JSON.stringify(state));
+
   renderQuestion(question, state);
 
   let answers = question.answers;

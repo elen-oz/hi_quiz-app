@@ -2,7 +2,7 @@ import {
   initialState,
   handleDifficultyClick,
   handleTechTopicClick,
-} from './src/utils';
+} from './utils';
 
 import {
   generalBtnEl,
@@ -19,7 +19,7 @@ import {
   containerDifficultyBtns,
   containerTechBtns,
   getHeaderMessage,
-} from './src/view';
+} from './view';
 
 const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
 
@@ -91,12 +91,16 @@ const startGame: () => void = () => {
   getHeaderMessage(currentState);
 
   const localStorageTechQuestionString = localStorage.getItem('techQuestion');
+  console.log('localStorageTechQuestionString', localStorageTechQuestionString);
+
   const localStorageTechQuestion =
     localStorageTechQuestionString !== null
       ? JSON.parse(localStorageTechQuestionString)
       : null;
 
   const localStorageTechStateString = localStorage.getItem('techState');
+  console.log('localStorageTechStateString', localStorageTechStateString);
+
   const localStorageTechState =
     localStorageTechStateString !== null
       ? JSON.parse(localStorageTechStateString)
@@ -104,12 +108,20 @@ const startGame: () => void = () => {
 
   const localStorageGeneralQuestionString =
     localStorage.getItem('generalQuestion');
+
+  console.log(
+    'localStorageGeneralQuestionString',
+    localStorageGeneralQuestionString
+  );
+
   const localStorageGeneralQuestion =
     localStorageGeneralQuestionString !== null
       ? JSON.parse(localStorageGeneralQuestionString)
       : null;
 
   const localStorageGeneralStateString = localStorage.getItem('generalState');
+  console.log('localStorageGeneralStateString', localStorageGeneralStateString);
+
   const localStorageGeneralState =
     localStorageGeneralStateString !== null
       ? JSON.parse(localStorageGeneralStateString)

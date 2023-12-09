@@ -1,5 +1,5 @@
 import { pickTechTopic, pickDifficulty } from './view';
-import { getTechQuestions, getGeneralQuestions } from '../script';
+import { getTechQuestions, getGeneralQuestions } from './script';
 
 interface GameState {
   start: string;
