@@ -30,6 +30,7 @@ interface CurrentState {
   score: number;
   isFirstQuestion: boolean;
   gameState: string;
+  gameType: string;
 }
 
 export const currentState: CurrentState = {
@@ -39,6 +40,7 @@ export const currentState: CurrentState = {
   score: initialState.score,
   isFirstQuestion: initialState.isFirstQuestion,
   gameState: initialState.gameState.start,
+  gameType: '',
 };
 
 export async function getTechQuestions(topic: string): Promise<void> {
@@ -52,8 +54,10 @@ export async function getTechQuestions(topic: string): Promise<void> {
   let data = await response.json();
 
   currentState.questions = data;
+  currentState.gameType = 'tech';
 
   console.log(currentState.questions);
+  console.log(currentState.gameType);
 
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -72,8 +76,10 @@ export async function getGeneralQuestions(difficulty: string): Promise<void> {
   let data = await response.json();
 
   currentState.questions = data.results;
+  currentState.gameType = 'general';
 
   console.log(currentState.questions);
+  console.log(currentState.gameType);
 
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -90,52 +96,31 @@ const startGame: () => void = () => {
 
   getHeaderMessage(currentState);
 
-  const localStorageTechQuestionString = localStorage.getItem('techQuestion');
-  console.log('localStorageTechQuestionString', localStorageTechQuestionString);
+  const localStorageQuestionString = localStorage.getItem('question');
 
-  const localStorageTechQuestion =
-    localStorageTechQuestionString !== null
-      ? JSON.parse(localStorageTechQuestionString)
+  console.log('localStorageQuestionString', localStorageQuestionString);
+
+  const localStorageQuestion =
+    localStorageQuestionString !== null
+      ? JSON.parse(localStorageQuestionString)
       : null;
 
-  const localStorageTechStateString = localStorage.getItem('techState');
-  console.log('localStorageTechStateString', localStorageTechStateString);
+  const localStorageStateString = localStorage.getItem('state');
+  console.log('localStorageStateString', localStorageStateString);
 
-  const localStorageTechState =
-    localStorageTechStateString !== null
-      ? JSON.parse(localStorageTechStateString)
+  const localStorageState =
+    localStorageStateString !== null
+      ? JSON.parse(localStorageStateString)
       : null;
 
-  const localStorageGeneralQuestionString =
-    localStorage.getItem('generalQuestion');
-
-  console.log(
-    'localStorageGeneralQuestionString',
-    localStorageGeneralQuestionString
-  );
-
-  const localStorageGeneralQuestion =
-    localStorageGeneralQuestionString !== null
-      ? JSON.parse(localStorageGeneralQuestionString)
-      : null;
-
-  const localStorageGeneralStateString = localStorage.getItem('generalState');
-  console.log('localStorageGeneralStateString', localStorageGeneralStateString);
-
-  const localStorageGeneralState =
-    localStorageGeneralStateString !== null
-      ? JSON.parse(localStorageGeneralStateString)
-      : null;
-
-  if (localStorageTechQuestion && localStorageTechState) {
-    renderTechQuestion(localStorageTechQuestion, localStorageTechState);
-    return;
-  } else if (localStorageGeneralQuestion && localStorageGeneralState) {
-    renderGeneralQuestion(
-      localStorageGeneralQuestion,
-      localStorageGeneralState
-    );
-    return;
+  if (localStorageQuestion && localStorageState) {
+    if (localStorageState.gameType === 'general') {
+      renderGeneralQuestion(localStorageQuestion, localStorageState);
+      return;
+    } else if (localStorageState.gameType === 'tech') {
+      renderTechQuestion(localStorageQuestion, localStorageState);
+      return;
+    }
   }
 
   generalBtnEl.addEventListener('click', handleDifficultyClick);

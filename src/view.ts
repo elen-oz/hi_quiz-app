@@ -158,6 +158,33 @@ export const renderPickTechTopicStage = (): void => {
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
 };
 
+export function removeEventListeners(): void {
+  generalBtnEl.addEventListener('click', handleDifficultyClick);
+  techBtnEl.addEventListener('click', handleTechTopicClick);
+  easyBtnEl.removeEventListener('click', handleEasyClick);
+  mediumBtnEl.removeEventListener('click', handleMediumClick);
+  hardBtnEl.removeEventListener('click', handleHardClick);
+  htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
+}
+
+export const pickDifficulty = (): void => {
+  renderPickDifficultyStage();
+  removeEventListeners();
+
+  easyBtnEl.addEventListener('click', handleEasyClick);
+  mediumBtnEl.addEventListener('click', handleMediumClick);
+  hardBtnEl.addEventListener('click', handleHardClick);
+};
+
+export const pickTechTopic = (): void => {
+  renderPickTechTopicStage();
+  removeEventListeners();
+
+  htmlBtnEl.addEventListener('click', handleQuestionsHtmlClick);
+  javascriptBtnEl.addEventListener('click', handleQuestionsJavascriptClick);
+};
+
 export const renderMessageAndScore = (isTrue: boolean, score: number): void => {
   if (isTrue) {
     gameMessageEl.innerHTML = `Correct! ${getRandomEmoji(1)}`;
@@ -166,6 +193,18 @@ export const renderMessageAndScore = (isTrue: boolean, score: number): void => {
     gameMessageEl.innerHTML = `Nope ${getRandomEmoji(2)}`;
     gameScoreEl.textContent = `Score: ${score}`;
   }
+};
+
+export const showFinalMessage = (state: State): void => {
+  getHeaderMessage(state);
+
+  const result = (state.score / state.questionNumber) * 100;
+  gameMessageEl.innerHTML = `Quiz completed 🍭`;
+  questionEl.innerHTML = `You answered ${result}% of the questions correctly.<br>${pickFinalEmoji(
+    result
+  )}`;
+
+  answersContainerEl.textContent = '';
 };
 
 const renderQuestion = (question: any, state: State) => {
@@ -190,11 +229,11 @@ export function renderGeneralQuestion(
   question: QuestionGeneral,
   state: State
 ): void {
-  localStorage.removeItem('techQuestion');
-  localStorage.removeItem('techState');
+  // localStorage.removeItem('techQuestion');
+  // localStorage.removeItem('techState');
 
-  localStorage.setItem('generalQuestion', JSON.stringify(question));
-  localStorage.setItem('generalState', JSON.stringify(state));
+  localStorage.setItem('question', JSON.stringify(question));
+  localStorage.setItem('state', JSON.stringify(state));
 
   renderQuestion(question, state);
 
@@ -233,24 +272,12 @@ export function renderGeneralQuestion(
   });
 }
 
-export const showFinalMessage = (state: State): void => {
-  getHeaderMessage(state);
-
-  const result = (state.score / state.questionNumber) * 100;
-  gameMessageEl.innerHTML = `Quiz completed 🍭`;
-  questionEl.innerHTML = `You answered ${result}% of the questions correctly.<br>${pickFinalEmoji(
-    result
-  )}`;
-
-  answersContainerEl.textContent = '';
-};
-
 export function renderTechQuestion(question: QuestionTech, state: State): void {
   localStorage.removeItem('generalQuestion');
   localStorage.removeItem('generalState');
 
-  localStorage.setItem('techQuestion', JSON.stringify(question));
-  localStorage.setItem('techState', JSON.stringify(state));
+  localStorage.setItem('question', JSON.stringify(question));
+  localStorage.setItem('state', JSON.stringify(state));
 
   renderQuestion(question, state);
 
@@ -284,30 +311,3 @@ export function renderTechQuestion(question: QuestionTech, state: State): void {
     }
   });
 }
-
-export function removeEventListeners(): void {
-  generalBtnEl.addEventListener('click', handleDifficultyClick);
-  techBtnEl.addEventListener('click', handleTechTopicClick);
-  easyBtnEl.removeEventListener('click', handleEasyClick);
-  mediumBtnEl.removeEventListener('click', handleMediumClick);
-  hardBtnEl.removeEventListener('click', handleHardClick);
-  htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
-  javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
-}
-
-export const pickDifficulty = (): void => {
-  renderPickDifficultyStage();
-  removeEventListeners();
-
-  easyBtnEl.addEventListener('click', handleEasyClick);
-  mediumBtnEl.addEventListener('click', handleMediumClick);
-  hardBtnEl.addEventListener('click', handleHardClick);
-};
-
-export const pickTechTopic = (): void => {
-  renderPickTechTopicStage();
-  removeEventListeners();
-
-  htmlBtnEl.addEventListener('click', handleQuestionsHtmlClick);
-  javascriptBtnEl.addEventListener('click', handleQuestionsJavascriptClick);
-};
