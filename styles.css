@@ -256,22 +256,78 @@ body {
   animation: animatedBackground 15s ease infinite;
 }
 
+.container-thomas {
+  display: none;
+}
+@media (min-width: 51rem) {
+  .container-thomas {
+    display: block;
+    z-index: 10;
+    position: absolute;
+  }
+}
+
 .container-thomas-on-side {
-  z-index: 10;
-  position: absolute;
   bottom: 10px;
   left: 0;
   width: 20rem;
+  height: 18rem;
+}
+.container-thomas-above {
+  top: -4rem;
+  right: 0;
+  width: 13rem;
   height: 20rem;
+}
+.container-thomas-on-side {
+  bottom: 10px;
+  left: 0;
+  width: 15rem;
+  height: 15rem;
+}
+.container-sleeping-thomas {
+  bottom: 0;
+  right: 2rem;
+  width: 19rem;
+  height: 6rem;
+}
+.container-beautiful-thomas {
+  bottom: -2rem;
+  left: 18rem;
+  width: 10rem;
+  height: 22rem;
 }
 
 .image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
+  display: none;
+}
 
+@media (min-width: 51rem) {
+  .image {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
+.image-thomas-on-side {
   background-image: url(./src/img/Thomas-On-Side.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.image-thomas-above {
+  background-image: url(./src/img/Thomas-Above.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.image-thomas-sleeping {
+  background-image: url(./src/img/sleeping-Thomas.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.image-beautiful-thomas {
+  background-image: url(./src/img/thomas-beautiful-kitty.PNG);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -285,19 +341,13 @@ body {
   right: 0;
   width: 1.1rem;
   height: 1.1rem;
-  border-radius: 100%;
-  background-color: var(--main);
+  text-transform: uppercase;
+  text-decoration: solid;
+  font-size: 1.5rem;
+  background-color: transparent;
+  color: inherit;
+  transition: 0.3s;
 }
-/* @media (min-width: 33rem) {
-  .image {
-    z-index: 10;
-    display: block;
-    position: absolute;
-    bottom: 30%;
-    left: 0;
-    width: 70%;
-    background-image: url(./src/img/IMG_5452.PNG);
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-} */
+.close-sign:hover {
+  color: var(--accent);
+}

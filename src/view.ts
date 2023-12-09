@@ -1,3 +1,4 @@
+// import { closeSignThomasBeautifulEl } from './view';
 import {
   handleDifficultyClick,
   handleTechTopicClick,
@@ -92,16 +93,52 @@ export const javascriptBtnEl = createElement(
   'button button-tech',
   'JavaScript'
 );
-// ! --------------------- THOMAS ------------------------
-const thomasContainerEl = createElement(
+// ! ---------------------  create THOMAS ------------------------
+const thomasOnSideContainerEl = createElement(
   'div',
-  'container-thomas-on-side animate__animated animate__rollIn'
+  'container-thomas container-thomas-on-side animate__animated animate__rollIn'
 );
-const thomasOnSideEl = createElement('div', 'image');
+
+const thomasOnSideEl = createElement('div', 'image image-thomas-on-side');
 
 export const closeSignThomasOnSideEl = createElement('button', 'close-sign');
 closeSignThomasOnSideEl.textContent = 'X';
 closeSignThomasOnSideEl.title = 'Shoo!';
+// -----------------------------------------
+const thomasAboveContainerEl = createElement(
+  'div',
+  'container-thomas container-thomas-above animate__animated animate__fadeInRight'
+);
+const thomasAboveEl = createElement('div', 'image image-thomas-above');
+
+export const closeSignThomasAboveEl = createElement('button', 'close-sign');
+closeSignThomasAboveEl.textContent = 'X';
+closeSignThomasAboveEl.title = 'Shoo!';
+
+// -----------------------------------------
+const thomasSleepingContainerEl = createElement(
+  'div',
+  'container-thomas container-sleeping-thomas animate__animated animate__fadeInRight'
+);
+const thomasSleepingEl = createElement('div', 'image image-thomas-sleeping');
+
+export const closeSignThomasSleepingEl = createElement('button', 'close-sign');
+closeSignThomasSleepingEl.textContent = 'X';
+closeSignThomasSleepingEl.title = 'Shoo!';
+
+// -----------------------------------------
+// image-beautiful-thomas
+const thomasBeautifulContainerEl = createElement(
+  'div',
+  'container-thomas container-beautiful-thomas animate__animated animate__fadeInRight'
+);
+const thomasBeautifulEl = createElement('div', 'image image-beautiful-thomas');
+
+export const closeSignThomasBeautifulEl = createElement('button', 'close-sign');
+closeSignThomasBeautifulEl.textContent = 'X';
+closeSignThomasBeautifulEl.title = 'Shoo!';
+
+// -----------------------------------------
 
 const appEl = document.querySelector('#app');
 
@@ -216,11 +253,23 @@ export const showFinalMessage = (state: State): void => {
 
   answersContainerEl.textContent = '';
 };
-// ! ---------------- THOMAS ------------------
+// ! ---------------- show THOMAS ------------------
 export const showThomas = () => {
-  containerEl.append(thomasContainerEl);
-  thomasContainerEl.append(thomasOnSideEl);
-  thomasContainerEl.append(closeSignThomasOnSideEl);
+  containerEl.append(thomasOnSideContainerEl);
+  thomasOnSideContainerEl.append(thomasOnSideEl);
+  thomasOnSideContainerEl.append(closeSignThomasOnSideEl);
+
+  containerEl.append(thomasAboveContainerEl);
+  thomasAboveContainerEl.append(thomasAboveEl);
+  thomasAboveContainerEl.append(closeSignThomasAboveEl);
+
+  containerEl.append(thomasSleepingContainerEl);
+  thomasSleepingContainerEl.append(thomasSleepingEl);
+  thomasSleepingContainerEl.append(closeSignThomasSleepingEl);
+
+  containerEl.append(thomasBeautifulContainerEl);
+  thomasBeautifulContainerEl.append(thomasBeautifulEl);
+  thomasBeautifulContainerEl.append(closeSignThomasBeautifulEl);
 };
 
 export const removeThomasOnSide = () => {
