@@ -111,8 +111,8 @@ footerEl.innerHTML =
 export const getHeaderMessage = (state: State): void => {
   switch (state.gameState) {
     case 'start':
-      questionsNumberEl.textContent = `🐟 Let's Start! 🐟`;
-      gameMessageEl.innerHTML = `Choose the topics you want 🍬`;
+      questionsNumberEl.textContent = `🐟 Ready for some fun? 🐟`;
+      gameMessageEl.innerHTML = `🎲 Let's play! 🎲`;
       break;
     case 'progress':
       questionsNumberEl.innerHTML = `${state.currentQuestionIndex + 1} / ${

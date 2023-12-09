@@ -56,9 +56,6 @@ export async function getTechQuestions(topic: string): Promise<void> {
   currentState.questions = data;
   currentState.gameType = 'tech';
 
-  console.log(currentState.questions);
-  console.log(currentState.gameType);
-
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
     currentState
@@ -78,9 +75,6 @@ export async function getGeneralQuestions(difficulty: string): Promise<void> {
   currentState.questions = data.results;
   currentState.gameType = 'general';
 
-  console.log(currentState.questions);
-  console.log(currentState.gameType);
-
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
     currentState
@@ -98,15 +92,12 @@ const startGame: () => void = () => {
 
   const localStorageQuestionString = localStorage.getItem('question');
 
-  console.log('localStorageQuestionString', localStorageQuestionString);
-
   const localStorageQuestion =
     localStorageQuestionString !== null
       ? JSON.parse(localStorageQuestionString)
       : null;
 
   const localStorageStateString = localStorage.getItem('state');
-  console.log('localStorageStateString', localStorageStateString);
 
   const localStorageState =
     localStorageStateString !== null
@@ -143,8 +134,6 @@ playAgainBtnEl.addEventListener('click', () => {
   questionEl.classList.add('hide');
 
   localStorage.clear();
-
-  gameMessageEl.innerHTML = 'Choose the topics you want 🍬';
 
   startGame();
 });
