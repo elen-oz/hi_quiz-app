@@ -18,6 +18,8 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
+.parcel-cache
+.vscode
 
 # logs
 npm-debug.log*
