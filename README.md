@@ -16,18 +16,14 @@ Quiz app. Choose the topic: general or technical questions and test your knowled
 
 Before you start, make sure you have Node.js and npm installed on your machine.
 
-1. Clone this repository to your local machine using `https://github.com/elen-oz/cooking-site.git`
-2. Navigate to the project directory: `cd cooking-site`
-3. Install all required dependencies with `npm install`
+1. Clone this repository to your local machine using `https://github.com/elen-oz/hi_quize-app.git`
+2. Navigate to the project directory: `hi_quize-app`
+3. Install all required dependencies with
+   ```
+   npm install
+   ```
 
 ## Usage
-
-\*\*Install the project's dependencies
-
-```
-npm install
-```
-
 To run the application in development mode, use the command
 
 ```
