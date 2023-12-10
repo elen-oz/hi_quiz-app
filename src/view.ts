@@ -1,4 +1,3 @@
-// import { closeSignThomasBeautifulEl } from './view';
 import {
   handleDifficultyClick,
   handleTechTopicClick,
@@ -93,52 +92,6 @@ export const javascriptBtnEl = createElement(
   'button button-tech',
   'JavaScript'
 );
-// ! ---------------------  create THOMAS ------------------------
-const thomasOnSideContainerEl = createElement(
-  'div',
-  'container-thomas container-thomas-on-side animate__animated animate__rollIn'
-);
-
-const thomasOnSideEl = createElement('div', 'image image-thomas-on-side');
-
-export const closeSignThomasOnSideEl = createElement('button', 'close-sign');
-closeSignThomasOnSideEl.textContent = 'х';
-closeSignThomasOnSideEl.title = 'Shoo!';
-// -----------------------------------------
-const thomasAboveContainerEl = createElement(
-  'div',
-  'container-thomas container-thomas-above animate__animated animate__rotateInDownRight'
-);
-const thomasAboveEl = createElement('div', 'image image-thomas-above');
-
-export const closeSignThomasAboveEl = createElement('button', 'close-sign');
-closeSignThomasAboveEl.textContent = 'х';
-closeSignThomasAboveEl.title = 'Shoo!';
-
-// -----------------------------------------
-const thomasOnBackContainerEl = createElement(
-  'div',
-  'container-thomas container-thomas-on-back animate__animated animate__fadeInRight'
-);
-const thomasOnBackEl = createElement('div', 'image image-thomas-on-back');
-
-export const closeSignThomasOnBackEl = createElement('button', 'close-sign');
-closeSignThomasOnBackEl.textContent = 'х';
-closeSignThomasOnBackEl.title = 'Shoo!';
-
-// -----------------------------------------
-// image-beautiful-thomas
-const thomasBeautifulContainerEl = createElement(
-  'div',
-  'container-thomas container-beautiful-thomas animate__animated animate__bounceIn'
-);
-const thomasBeautifulEl = createElement('div', 'image image-beautiful-thomas');
-
-export const closeSignThomasBeautifulEl = createElement('button', 'close-sign');
-closeSignThomasBeautifulEl.textContent = 'х';
-closeSignThomasBeautifulEl.title = 'Shoo!';
-
-// -----------------------------------------
 
 const appEl = document.querySelector('#app');
 
@@ -253,47 +206,6 @@ export const showFinalMessage = (state: State): void => {
 
   answersContainerEl.textContent = '';
 };
-// ! ---------------- show THOMAS v ------------------
-export const showThomasOnSide = () => {
-  containerEl.append(thomasOnSideContainerEl);
-  thomasOnSideContainerEl.append(thomasOnSideEl);
-  thomasOnSideContainerEl.append(closeSignThomasOnSideEl);
-};
-
-export const showThomasAbove = () => {
-  containerEl.append(thomasAboveContainerEl);
-  thomasAboveContainerEl.append(thomasAboveEl);
-  thomasAboveContainerEl.append(closeSignThomasAboveEl);
-};
-
-export const showThomasOnBack = () => {
-  containerEl.append(thomasOnBackContainerEl);
-  thomasOnBackContainerEl.append(thomasOnBackEl);
-  thomasOnBackContainerEl.append(closeSignThomasOnBackEl);
-};
-
-export const showThomasBeautiful = () => {
-  containerEl.append(thomasBeautifulContainerEl);
-  thomasBeautifulContainerEl.append(thomasBeautifulEl);
-  thomasBeautifulContainerEl.append(closeSignThomasBeautifulEl);
-};
-
-export const removeThomasOnSide = () => {
-  thomasOnSideContainerEl.remove();
-};
-
-export const removeThomasAbove = () => {
-  thomasAboveContainerEl.remove();
-};
-
-export const removeThomasOnBack = () => {
-  thomasOnBackContainerEl.remove();
-};
-
-export const removeThomasBeautiful = () => {
-  thomasBeautifulContainerEl.remove();
-};
-// ! -------------- show THOMAS ^ ----------------
 
 const renderQuestion = (question: any, state: State) => {
   containerDifficultyBtns.remove();

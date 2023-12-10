@@ -19,18 +19,6 @@ import {
   containerDifficultyBtns,
   containerTechBtns,
   getHeaderMessage,
-  showThomasOnSide,
-  showThomasOnBack,
-  showThomasAbove,
-  showThomasBeautiful,
-  closeSignThomasOnSideEl,
-  closeSignThomasAboveEl,
-  closeSignThomasOnBackEl,
-  closeSignThomasBeautifulEl,
-  removeThomasOnSide,
-  removeThomasAbove,
-  removeThomasBeautiful,
-  removeThomasOnBack,
 } from './view';
 
 const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -150,18 +138,4 @@ playAgainBtnEl.addEventListener('click', () => {
   startGame();
 });
 
-closeSignThomasOnSideEl.addEventListener('click', removeThomasOnSide);
-closeSignThomasAboveEl.addEventListener('click', removeThomasAbove);
-closeSignThomasOnBackEl.addEventListener('click', removeThomasOnBack);
-closeSignThomasBeautifulEl.addEventListener('click', removeThomasBeautiful);
-
-showThomasOnSide();
-showThomasAbove();
-showThomasOnBack();
-showThomasBeautiful();
-
 startGame();
-
-// ,
-// ,
-// ,
