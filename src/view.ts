@@ -1,15 +1,15 @@
 import {
   handleDifficultyClick,
   handleTechTopicClick,
-  handleEasyClick,
-  handleMediumClick,
-  handleHardClick,
   handleQuestionsHtmlClick,
   handleQuestionsJavascriptClick,
   getRandomEmoji,
   pickFinalEmoji,
   initialState,
+  handleQuestionSelection,
 } from './utils';
+
+import { currentState } from './script';
 
 interface QuestionGeneral {
   category: string;
@@ -27,13 +27,14 @@ interface QuestionTech {
   question: string;
 }
 
-interface State {
+export interface State {
   questions: any[];
   questionNumber: number;
   currentQuestionIndex: number;
   score: number;
   isFirstQuestion: boolean;
   gameState: string;
+  gameType: string;
 }
 
 export const createElement = (
@@ -75,6 +76,12 @@ export const generalBtnEl = createElement(
   'General Questions'
 );
 export const techBtnEl = createElement('button', 'button', 'Tech Questions');
+export const informaticsBtnEl = createElement(
+  'button',
+  'button',
+  'Computer Science'
+);
+
 export const containerDifficultyBtns = createElement(
   'div',
   'container-buttons-selection'
@@ -139,7 +146,7 @@ export const renderStartGame = (): void => {
   gameBoardEl.append(questionEl);
 
   gameBoardEl.append(containerNewGameBtnEl);
-  containerNewGameBtnEl.append(generalBtnEl, techBtnEl);
+  containerNewGameBtnEl.append(generalBtnEl, techBtnEl, informaticsBtnEl);
 };
 
 export const renderPickDifficultyStage = (): void => {
@@ -157,24 +164,47 @@ export const renderPickTechTopicStage = (): void => {
   gameBoardEl.append(containerTechBtns);
   containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
 };
-
+// ----- here ----------------------
 export function removeEventListeners(): void {
-  generalBtnEl.addEventListener('click', handleDifficultyClick);
-  techBtnEl.addEventListener('click', handleTechTopicClick);
-  easyBtnEl.removeEventListener('click', handleEasyClick);
-  mediumBtnEl.removeEventListener('click', handleMediumClick);
-  hardBtnEl.removeEventListener('click', handleHardClick);
+  generalBtnEl.addEventListener('click', (e) => {
+    handleDifficultyClick(currentState);
+  });
+  techBtnEl.addEventListener('click', (e) => {
+    handleTechTopicClick(currentState);
+  });
+  informaticsBtnEl.addEventListener('click', (e) => {
+    handleDifficultyClick(currentState);
+  });
+  easyBtnEl.removeEventListener('click', (e) => {
+    handleQuestionSelection(currentState, 'easy');
+  });
+  mediumBtnEl.removeEventListener('click', (e) => {
+    handleQuestionSelection(currentState, 'medium');
+  });
+  hardBtnEl.removeEventListener('click', (e) => {
+    handleQuestionSelection(currentState, 'hard');
+  });
   htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
   javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
 }
 
-export const pickDifficulty = (): void => {
+export const pickDifficulty = (state: State): void => {
   renderPickDifficultyStage();
   removeEventListeners();
 
-  easyBtnEl.addEventListener('click', handleEasyClick);
-  mediumBtnEl.addEventListener('click', handleMediumClick);
-  hardBtnEl.addEventListener('click', handleHardClick);
+  easyBtnEl.addEventListener('click', () => {
+    console.log('easyBtnEl');
+    console.log('state', state);
+    handleQuestionSelection(state, 'easy');
+  });
+  mediumBtnEl.addEventListener('click', () => {
+    console.log('mediumBtnEl');
+    handleQuestionSelection(state, 'medium');
+  });
+  hardBtnEl.addEventListener('click', () => {
+    console.log('hardBtnEl');
+    handleQuestionSelection(state, 'hard');
+  });
 };
 
 export const pickTechTopic = (): void => {
@@ -235,7 +265,6 @@ export function renderGeneralQuestion(
   renderQuestion(question, state);
 
   let correctAnswer = question.correct_answer;
-  // let answers = question.incorrect_answers.concat([question.correct_answer]);
   let answers = [
     ...(question.incorrect_answers || []),
     question.correct_answer,
@@ -268,6 +297,7 @@ export function renderGeneralQuestion(
     answersContainerEl.append(answerEl);
   });
 }
+// ----------------------------------------------------------
 
 export function renderTechQuestion(question: QuestionTech, state: State): void {
   localStorage.removeItem('generalQuestion');

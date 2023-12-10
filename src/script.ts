@@ -7,6 +7,7 @@ import {
 import {
   generalBtnEl,
   techBtnEl,
+  informaticsBtnEl,
   playAgainBtnEl,
   gameMessageEl,
   gameScoreEl,
@@ -62,8 +63,29 @@ export async function getTechQuestions(topic: string): Promise<void> {
   );
 }
 
+export async function getInformaticsQuestions(
+  difficulty: string
+): Promise<void> {
+  let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=18&difficulty=${difficulty}`;
+  let response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`API call failed: ${response.status}`);
+  }
+
+  let data = await response.json();
+
+  currentState.questions = data.results;
+  currentState.gameType = 'informatics';
+
+  renderGeneralQuestion(
+    currentState.questions[currentState.currentQuestionIndex],
+    currentState
+  );
+}
+
 export async function getGeneralQuestions(difficulty: string): Promise<void> {
-  let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=9&difficulty=${difficulty}&type=multiple`;
+  let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=9&difficulty=${difficulty}`;
   let response = await fetch(url);
 
   if (!response.ok) {
@@ -103,9 +125,12 @@ const startGame: () => void = () => {
     localStorageStateString !== null
       ? JSON.parse(localStorageStateString)
       : null;
-
+  // here
   if (localStorageQuestion && localStorageState) {
-    if (localStorageState.gameType === 'general') {
+    if (
+      localStorageState.gameType === 'general' ||
+      localStorageState.gameType === 'informatics'
+    ) {
       renderGeneralQuestion(localStorageQuestion, localStorageState);
       return;
     } else if (localStorageState.gameType === 'tech') {
@@ -114,8 +139,18 @@ const startGame: () => void = () => {
     }
   }
 
-  generalBtnEl.addEventListener('click', handleDifficultyClick);
-  techBtnEl.addEventListener('click', handleTechTopicClick);
+  generalBtnEl.addEventListener('click', () => {
+    currentState.gameType = 'general';
+    handleDifficultyClick(currentState);
+  });
+  techBtnEl.addEventListener('click', () => {
+    currentState.gameType = 'tech';
+    handleTechTopicClick(currentState);
+  });
+  informaticsBtnEl.addEventListener('click', () => {
+    currentState.gameType = 'informatics';
+    handleDifficultyClick(currentState);
+  });
 };
 
 playAgainBtnEl.addEventListener('click', () => {

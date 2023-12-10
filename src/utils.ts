@@ -1,5 +1,9 @@
-import { pickTechTopic, pickDifficulty } from './view';
-import { getTechQuestions, getGeneralQuestions } from './script';
+import { pickTechTopic, pickDifficulty, State } from './view';
+import {
+  getTechQuestions,
+  getGeneralQuestions,
+  getInformaticsQuestions,
+} from './script';
 
 interface GameState {
   start: string;
@@ -27,12 +31,33 @@ export const initialState: InitialState = {
   },
 };
 
-export const handleDifficultyClick = (): void => pickDifficulty();
-export const handleTechTopicClick = (): void => pickTechTopic();
-export const handleEasyClick = (): Promise<void> => getGeneralQuestions('easy');
-export const handleMediumClick = (): Promise<void> =>
-  getGeneralQuestions('medium');
-export const handleHardClick = (): Promise<void> => getGeneralQuestions('hard');
+export const handleDifficultyClick = (state: State): void =>
+  pickDifficulty(state);
+export const handleTechTopicClick = (state: State): void => pickTechTopic();
+
+// export const handleQuestionSelectionWrapper = (
+//   state: State,
+//   difficulty: string
+// ) => {
+//   return () => handleQuestionSelection(state, difficulty);
+// };
+
+export const handleQuestionSelection = (
+  state: State,
+  difficulty: string
+): Promise<void> => {
+  switch (state.gameType) {
+    case 'general':
+      return getGeneralQuestions(difficulty);
+    case 'informatics':
+      return getInformaticsQuestions(difficulty);
+    default:
+      console.error(
+        `Error in handleQuestionSelection function: unknown topic ${state.gameType}`
+      );
+      return Promise.resolve();
+  }
+};
 
 export const handleQuestionsHtmlClick = (): Promise<void> =>
   getTechQuestions('HTML');
