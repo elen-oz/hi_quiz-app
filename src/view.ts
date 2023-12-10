@@ -107,7 +107,7 @@ closeSignThomasOnSideEl.title = 'Shoo!';
 // -----------------------------------------
 const thomasAboveContainerEl = createElement(
   'div',
-  'container-thomas container-thomas-above animate__animated animate__fadeInRight'
+  'container-thomas container-thomas-above animate__animated animate__rotateInDownRight'
 );
 const thomasAboveEl = createElement('div', 'image image-thomas-above');
 
@@ -130,7 +130,7 @@ closeSignThomasOnBackEl.title = 'Shoo!';
 // image-beautiful-thomas
 const thomasBeautifulContainerEl = createElement(
   'div',
-  'container-thomas container-beautiful-thomas animate__animated animate__fadeInRight'
+  'container-thomas container-beautiful-thomas animate__animated animate__bounceIn'
 );
 const thomasBeautifulEl = createElement('div', 'image image-beautiful-thomas');
 
