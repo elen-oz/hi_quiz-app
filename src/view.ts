@@ -279,9 +279,7 @@ export const showThomasBeautiful = () => {
 };
 
 export const removeThomasOnSide = () => {
-  // ? -----может удалить контейнер?
-  closeSignThomasOnSideEl.remove();
-  thomasOnSideEl.remove();
+  thomasOnSideContainerEl.remove();
 };
 
 export const removeThomasAbove = () => {

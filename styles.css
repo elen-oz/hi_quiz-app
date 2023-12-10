@@ -268,10 +268,10 @@ body {
 }
 
 .container-thomas-on-side {
-  bottom: 10px;
+  bottom: -2rem;
   left: 0;
-  width: 20rem;
-  height: 18rem;
+  width: 15rem;
+  height: 14rem;
 }
 .container-thomas-above {
   top: -4rem;
@@ -279,14 +279,9 @@ body {
   width: 13rem;
   height: 13rem;
 }
-.container-thomas-on-side {
-  top: 0;
-  left: 0;
-  width: 15rem;
-  height: 14rem;
-}
+
 .container-thomas-on-back {
-  bottom: 0;
+  bottom: 35%;
   right: 2rem;
   width: 19rem;
   height: 6rem;
