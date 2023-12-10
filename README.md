@@ -2,6 +2,8 @@
 
 [Link to the project](https://lovely-gingersnap-604e31.netlify.app/)
 
+[Demo](https://6575a15f458d37117e441aae--jazzy-sundae-cb12e4.netlify.app/)
+
 ## Project Description
 
 Quiz app. Choose the topic: general or technical questions and test your knowledge. The project is built using **HTML**, **CSS** and **TypeScript**.
@@ -24,6 +26,7 @@ Before you start, make sure you have Node.js and npm installed on your machine.
    ```
 
 ## Usage
+
 To run the application in development mode, use the command
 
 ```
