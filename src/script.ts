@@ -17,9 +17,9 @@ import {
   renderGeneralQuestion,
   renderTechQuestion,
   removeEventListeners,
-  containerDifficultyBtns,
-  containerTechBtns,
-  getHeaderMessage,
+  containerDifficultyButtons,
+  containerTechButtons,
+  renderHeaderMessage,
 } from './view';
 
 const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
@@ -53,9 +53,7 @@ export async function getTechQuestions(topic: string): Promise<void> {
   }
 
   let data = await response.json();
-
   currentState.questions = data;
-  currentState.gameType = 'tech';
 
   renderTechQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -74,9 +72,7 @@ export async function getInformaticsQuestions(
   }
 
   let data = await response.json();
-
   currentState.questions = data.results;
-  currentState.gameType = 'informatics';
 
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -93,9 +89,7 @@ export async function getGeneralQuestions(difficulty: string): Promise<void> {
   }
 
   let data = await response.json();
-
   currentState.questions = data.results;
-  currentState.gameType = 'general';
 
   renderGeneralQuestion(
     currentState.questions[currentState.currentQuestionIndex],
@@ -110,7 +104,7 @@ const startGame: () => void = () => {
   currentState.isFirstQuestion = true;
   currentState.gameState = initialState.gameState.start;
 
-  getHeaderMessage(currentState);
+  renderHeaderMessage(currentState);
 
   const localStorageQuestionString = localStorage.getItem('question');
 
@@ -125,7 +119,7 @@ const startGame: () => void = () => {
     localStorageStateString !== null
       ? JSON.parse(localStorageStateString)
       : null;
-  // here
+
   if (localStorageQuestion && localStorageState) {
     if (
       localStorageState.gameType === 'general' ||
@@ -164,8 +158,8 @@ playAgainBtnEl.addEventListener('click', () => {
   answersContainerEl.innerHTML = '';
   questionEl.innerHTML = '';
   gameScoreEl.textContent = '';
-  containerDifficultyBtns.remove();
-  containerTechBtns.remove();
+  containerDifficultyButtons.remove();
+  containerTechButtons.remove();
   questionEl.classList.add('hide');
 
   localStorage.clear();

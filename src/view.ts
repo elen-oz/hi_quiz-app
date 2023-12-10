@@ -75,21 +75,25 @@ export const generalBtnEl = createElement(
   'button',
   'General Questions'
 );
-export const techBtnEl = createElement('button', 'button', 'Tech Questions');
+export const techBtnEl = createElement(
+  'button',
+  'button',
+  'Frontend Questions'
+);
 export const informaticsBtnEl = createElement(
   'button',
   'button',
   'Computer Science'
 );
 
-export const containerDifficultyBtns = createElement(
+export const containerDifficultyButtons = createElement(
   'div',
   'container-buttons-selection'
 );
 export const easyBtnEl = createElement('button', 'button', 'Easy Peasy');
 export const mediumBtnEl = createElement('button', 'button', 'Medium');
 export const hardBtnEl = createElement('button', 'button', 'Hard');
-export const containerTechBtns = createElement(
+export const containerTechButtons = createElement(
   'div',
   'container-buttons-selection'
 );
@@ -115,7 +119,7 @@ headerEl.append(playAgainBtnEl);
 footerEl.innerHTML =
   '<a href="https://github.com/elen-oz/hi_quize-app/tree/elena" target="_blank">Source Code</a>';
 
-export const getHeaderMessage = (state: State): void => {
+export const renderHeaderMessage = (state: State): void => {
   switch (state.gameState) {
     case 'start':
       questionsNumberEl.textContent = `🐟 Ready for some fun? 🐟`;
@@ -144,7 +148,6 @@ export const renderStartGame = (): void => {
     answersContainerEl
   );
   gameBoardEl.append(questionEl);
-
   gameBoardEl.append(containerNewGameBtnEl);
   containerNewGameBtnEl.append(generalBtnEl, techBtnEl, informaticsBtnEl);
 };
@@ -153,18 +156,18 @@ export const renderPickDifficultyStage = (): void => {
   containerNewGameBtnEl.remove();
 
   gameMessageEl.innerHTML = `What level of difficulty? ⚔️`;
-
-  gameBoardEl.append(containerDifficultyBtns);
-  containerDifficultyBtns.append(easyBtnEl, mediumBtnEl, hardBtnEl);
+  gameBoardEl.append(containerDifficultyButtons);
+  containerDifficultyButtons.append(easyBtnEl, mediumBtnEl, hardBtnEl);
 };
 
 export const renderPickTechTopicStage = (): void => {
   containerNewGameBtnEl.remove();
 
-  gameBoardEl.append(containerTechBtns);
-  containerTechBtns.append(htmlBtnEl, javascriptBtnEl);
+  gameMessageEl.innerHTML = `What topic? 🥁`;
+  gameBoardEl.append(containerTechButtons);
+  containerTechButtons.append(htmlBtnEl, javascriptBtnEl);
 };
-// ----- here ----------------------
+
 export function removeEventListeners(): void {
   generalBtnEl.addEventListener('click', (e) => {
     handleDifficultyClick(currentState);
@@ -193,16 +196,12 @@ export const pickDifficulty = (state: State): void => {
   removeEventListeners();
 
   easyBtnEl.addEventListener('click', () => {
-    console.log('easyBtnEl');
-    console.log('state', state);
     handleQuestionSelection(state, 'easy');
   });
   mediumBtnEl.addEventListener('click', () => {
-    console.log('mediumBtnEl');
     handleQuestionSelection(state, 'medium');
   });
   hardBtnEl.addEventListener('click', () => {
-    console.log('hardBtnEl');
     handleQuestionSelection(state, 'hard');
   });
 };
@@ -226,7 +225,7 @@ export const renderMessageAndScore = (isTrue: boolean, score: number): void => {
 };
 
 export const showFinalMessage = (state: State): void => {
-  getHeaderMessage(state);
+  renderHeaderMessage(state);
 
   const result = (state.score / state.questionNumber) * 100;
   gameMessageEl.innerHTML = `Quiz completed 🍭`;
@@ -238,9 +237,9 @@ export const showFinalMessage = (state: State): void => {
 };
 
 const renderQuestion = (question: any, state: State) => {
-  containerDifficultyBtns.remove();
+  containerDifficultyButtons.remove();
   containerNewGameBtnEl.remove();
-  containerTechBtns.remove();
+  containerTechButtons.remove();
   answersContainerEl.innerHTML = '';
   state.gameState = initialState.gameState.progress;
 
@@ -249,10 +248,10 @@ const renderQuestion = (question: any, state: State) => {
     state.isFirstQuestion = false;
   }
 
-  getHeaderMessage(state);
+  renderHeaderMessage(state);
 
   questionEl.classList.remove('hide');
-  questionEl.innerHTML = question.question;
+  questionEl.textContent = question.question;
 };
 
 export function renderGeneralQuestion(
@@ -297,7 +296,6 @@ export function renderGeneralQuestion(
     answersContainerEl.append(answerEl);
   });
 }
-// ----------------------------------------------------------
 
 export function renderTechQuestion(question: QuestionTech, state: State): void {
   localStorage.removeItem('generalQuestion');
@@ -330,6 +328,7 @@ export function renderTechQuestion(question: QuestionTech, state: State): void {
             state
           );
         } else {
+          state.gameState = initialState.gameState.end;
           showFinalMessage(state);
         }
       });

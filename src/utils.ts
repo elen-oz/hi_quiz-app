@@ -35,13 +35,6 @@ export const handleDifficultyClick = (state: State): void =>
   pickDifficulty(state);
 export const handleTechTopicClick = (state: State): void => pickTechTopic();
 
-// export const handleQuestionSelectionWrapper = (
-//   state: State,
-//   difficulty: string
-// ) => {
-//   return () => handleQuestionSelection(state, difficulty);
-// };
-
 export const handleQuestionSelection = (
   state: State,
   difficulty: string
@@ -70,7 +63,7 @@ const emoji: Emoji = {
   0: ['🎖️', '🥇', '💫', '🌟', '🏆', '💥', '🏅', '👑', '🥰', '🥳'],
   1: ['😊', '👌', '🤘', '🤟', '👍🏻', '🤌', '🤙🏼', '✌️', '😌'],
   2: ['😬', '🤔', '😖', '🥺', '🥴', '😵‍💫', '🤏🏻', '🦧'],
-  3: ['💔', '😫', '😞', '😣', '😥', '😔', '😟', '😧', '🤧', '🥺'],
+  3: ['💔', '😫', '😞', '😣', '😥', '😔', '😟', '😧', '🤧'],
 };
 
 export function getRandomEmoji(key: number): string {
