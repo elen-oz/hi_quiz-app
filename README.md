@@ -18,7 +18,7 @@ Quiz app. Choose the topic: general, computer science or frontend questions and 
 
 Before you start, make sure you have Node.js and npm installed on your machine.
 
-1. Clone this repository to your local machine using `https://github.com/elen-oz/hi_quize-app.git`
+1. Clone this repository to your local machine using `https://github.com/elen-oz/hi_quiz-app.git`
 2. Navigate to the project directory: `hi_quiz-app`
 3. Install all required dependencies with
    ```
