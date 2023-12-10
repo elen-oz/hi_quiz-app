@@ -296,22 +296,22 @@ body {
   }
 }
 .image-thomas-on-side {
-  background-image: url(./src/img/thomas-on-side.png);
+  background-image: url('./src/img/thomas-on-side.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-thomas-above {
-  background-image: url(./src/img/thomas-above.png);
+  background-image: url('./src/img/thomas-above.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-thomas-on-back {
-  background-image: url(./src/img/sleeping-thomas.png);
+  background-image: url('./src/img/sleeping-thomas.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-beautiful-thomas {
-  background-image: url(./src/img/thomas-beautiful-kitty.png);
+  background-image: url('./src/img/thomas-beautiful-kitty.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
