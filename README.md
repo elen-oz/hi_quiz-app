@@ -6,7 +6,7 @@
 
 ## Project Description
 
-Quiz app. Choose the topic: general or technical questions and test your knowledge. The project is built using **HTML**, **CSS** and **TypeScript**.
+Quiz app. Choose the topic: general, computer science or frontend questions and test your knowledge. The project is built using **HTML**, **CSS** and **TypeScript**.
 
 ## Features
 
