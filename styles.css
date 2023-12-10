@@ -17,9 +17,6 @@
   outline: none;
   box-shadow: none;
 }
-img {
-  all: unset;
-}
 body {
   width: 100%;
   height: 100vh;
@@ -224,14 +221,6 @@ body {
   border: 2px solid var(--dark-gray);
 }
 
-/* todo: добавить окараску кнопки правильный ответ/неправильный с задержкой 2сек */
-.correct-answer {
-  background-color: lightgreen;
-}
-.wrong-answer {
-  background-color: crimson;
-}
-
 @keyframes animatedBackground {
   0% {
     background-position: 0% 50%;
@@ -307,22 +296,22 @@ body {
   }
 }
 .image-thomas-on-side {
-  background-image: url(./src/img/Thomas-On-Side.PNG);
+  background-image: url(./src/img/Thomas-On-Side.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-thomas-above {
-  background-image: url(./src/img/Thomas-Above.PNG);
+  background-image: url(./src/img/Thomas-Above.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-thomas-on-back {
-  background-image: url(./src/img/sleeping-Thomas.PNG);
+  background-image: url(./src/img/sleeping-Thomas.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 .image-beautiful-thomas {
-  background-image: url(./src/img/thomas-beautiful-kitty.PNG);
+  background-image: url(./src/img/thomas-beautiful-kitty.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
