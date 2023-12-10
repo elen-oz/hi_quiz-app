@@ -277,15 +277,15 @@ body {
   top: -4rem;
   right: 0;
   width: 13rem;
-  height: 20rem;
+  height: 13rem;
 }
 .container-thomas-on-side {
-  bottom: 10px;
+  top: 0;
   left: 0;
   width: 15rem;
-  height: 15rem;
+  height: 14rem;
 }
-.container-sleeping-thomas {
+.container-thomas-on-back {
   bottom: 0;
   right: 2rem;
   width: 19rem;
@@ -321,7 +321,7 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
 }
-.image-thomas-sleeping {
+.image-thomas-on-back {
   background-image: url(./src/img/sleeping-Thomas.PNG);
   background-size: contain;
   background-repeat: no-repeat;
@@ -341,7 +341,6 @@ body {
   right: 0;
   width: 1.1rem;
   height: 1.1rem;
-  text-transform: uppercase;
   text-decoration: solid;
   font-size: 1.5rem;
   background-color: transparent;

@@ -102,7 +102,7 @@ const thomasOnSideContainerEl = createElement(
 const thomasOnSideEl = createElement('div', 'image image-thomas-on-side');
 
 export const closeSignThomasOnSideEl = createElement('button', 'close-sign');
-closeSignThomasOnSideEl.textContent = 'X';
+closeSignThomasOnSideEl.textContent = 'х';
 closeSignThomasOnSideEl.title = 'Shoo!';
 // -----------------------------------------
 const thomasAboveContainerEl = createElement(
@@ -112,19 +112,19 @@ const thomasAboveContainerEl = createElement(
 const thomasAboveEl = createElement('div', 'image image-thomas-above');
 
 export const closeSignThomasAboveEl = createElement('button', 'close-sign');
-closeSignThomasAboveEl.textContent = 'X';
+closeSignThomasAboveEl.textContent = 'х';
 closeSignThomasAboveEl.title = 'Shoo!';
 
 // -----------------------------------------
-const thomasSleepingContainerEl = createElement(
+const thomasOnBackContainerEl = createElement(
   'div',
-  'container-thomas container-sleeping-thomas animate__animated animate__fadeInRight'
+  'container-thomas container-thomas-on-back animate__animated animate__fadeInRight'
 );
-const thomasSleepingEl = createElement('div', 'image image-thomas-sleeping');
+const thomasOnBackEl = createElement('div', 'image image-thomas-on-back');
 
-export const closeSignThomasSleepingEl = createElement('button', 'close-sign');
-closeSignThomasSleepingEl.textContent = 'X';
-closeSignThomasSleepingEl.title = 'Shoo!';
+export const closeSignThomasOnBackEl = createElement('button', 'close-sign');
+closeSignThomasOnBackEl.textContent = 'х';
+closeSignThomasOnBackEl.title = 'Shoo!';
 
 // -----------------------------------------
 // image-beautiful-thomas
@@ -135,7 +135,7 @@ const thomasBeautifulContainerEl = createElement(
 const thomasBeautifulEl = createElement('div', 'image image-beautiful-thomas');
 
 export const closeSignThomasBeautifulEl = createElement('button', 'close-sign');
-closeSignThomasBeautifulEl.textContent = 'X';
+closeSignThomasBeautifulEl.textContent = 'х';
 closeSignThomasBeautifulEl.title = 'Shoo!';
 
 // -----------------------------------------
@@ -253,29 +253,49 @@ export const showFinalMessage = (state: State): void => {
 
   answersContainerEl.textContent = '';
 };
-// ! ---------------- show THOMAS ------------------
-export const showThomas = () => {
+// ! ---------------- show THOMAS v ------------------
+export const showThomasOnSide = () => {
   containerEl.append(thomasOnSideContainerEl);
   thomasOnSideContainerEl.append(thomasOnSideEl);
   thomasOnSideContainerEl.append(closeSignThomasOnSideEl);
+};
 
+export const showThomasAbove = () => {
   containerEl.append(thomasAboveContainerEl);
   thomasAboveContainerEl.append(thomasAboveEl);
   thomasAboveContainerEl.append(closeSignThomasAboveEl);
+};
 
-  containerEl.append(thomasSleepingContainerEl);
-  thomasSleepingContainerEl.append(thomasSleepingEl);
-  thomasSleepingContainerEl.append(closeSignThomasSleepingEl);
+export const showThomasOnBack = () => {
+  containerEl.append(thomasOnBackContainerEl);
+  thomasOnBackContainerEl.append(thomasOnBackEl);
+  thomasOnBackContainerEl.append(closeSignThomasOnBackEl);
+};
 
+export const showThomasBeautiful = () => {
   containerEl.append(thomasBeautifulContainerEl);
   thomasBeautifulContainerEl.append(thomasBeautifulEl);
   thomasBeautifulContainerEl.append(closeSignThomasBeautifulEl);
 };
 
 export const removeThomasOnSide = () => {
+  // ? -----может удалить контейнер?
   closeSignThomasOnSideEl.remove();
   thomasOnSideEl.remove();
 };
+
+export const removeThomasAbove = () => {
+  thomasAboveContainerEl.remove();
+};
+
+export const removeThomasOnBack = () => {
+  thomasOnBackContainerEl.remove();
+};
+
+export const removeThomasBeautiful = () => {
+  thomasBeautifulContainerEl.remove();
+};
+// ! -------------- show THOMAS ^ ----------------
 
 const renderQuestion = (question: any, state: State) => {
   containerDifficultyBtns.remove();
