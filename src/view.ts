@@ -251,7 +251,14 @@ const renderQuestion = (question: any, state: State) => {
   renderHeaderMessage(state);
 
   questionEl.classList.remove('hide');
-  questionEl.textContent = question.question;
+
+  console.log('state.gameType', state.gameType);
+
+  if (state.gameType === 'tech') {
+    questionEl.textContent = question.question;
+  } else {
+    questionEl.innerHTML = question.question;
+  }
 };
 
 export function renderGeneralQuestion(
