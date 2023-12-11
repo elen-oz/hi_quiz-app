@@ -74,7 +74,7 @@ containerEl.append(resultEl);
 
 // questions from an API and display the first question.
 async function getQuestion() {
-  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=26&type=multiple`;
+  let url = `https://opentdb.com/api.php?amount=${questionsNumber}&category=26`;
   let response = await fetch(url);
   let data = await response.json();
 
@@ -126,6 +126,9 @@ function renderQuestion(question) {
         currentQuestion += 1;
         renderQuestion(questions[currentQuestion]);
       } else {
+
+
+        //this is the last part of the function if the question is the last one.
         // add to the end of "history" array new result
         history[history.length] = rightAnswers;
 

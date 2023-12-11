@@ -1,3 +1,4 @@
 # hi_quiz-app
 
-test
+[link to the project](https://elen-oz.github.io/hi_quiz-app/)
+
