@@ -79,7 +79,7 @@ async function getQuestion() {
   let data = await response.json();
 
   questions = data.results;
-  console.log(questions);
+
 
   renderQuestion(questions[currentQuestion]);
 }
@@ -99,7 +99,7 @@ function renderQuestion(question) {
   questionEl.innerHTML = question.question;
 
   let correctAnswer = question.correct_answer;
-  console.log('---hint: ', correctAnswer);
+ 
 
   let answers = question.incorrect_answers.concat([question.correct_answer]);
   answers = answers.sort(() => 0.5 - Math.random());
@@ -116,10 +116,6 @@ function renderQuestion(question) {
       // Go to the next question or end the quiz if all questions are answered.
       if (currentAnswer === correctAnswer) {
         rightAnswers += 1;
-        console.log('! Right Answers: ' + rightAnswers);
-        console.log('=> Correct!');
-      } else {
-        console.log('=> Not correct');
       }
 
       if (currentQuestion < questions.length - 1) {
