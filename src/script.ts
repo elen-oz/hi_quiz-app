@@ -22,8 +22,6 @@ import {
   renderHeaderMessage,
 } from './view';
 
-const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
-
 interface CurrentState {
   questions: any[];
   questionNumber: number;
@@ -44,7 +42,9 @@ export const currentState: CurrentState = {
   gameType: '',
 };
 
-export async function getTechQuestions(topic: string): Promise<void> {
+const API_KEY: string = 'Xk2hwwlJjoNOx1FcB9vjjswxmOuaw0DHJ43QN980';
+
+export const getTechQuestions = async (topic: string): Promise<void> => {
   let url: string = `https://quizapi.io/api/v1/questions?apiKey=${API_KEY}&tags=${topic}&limit=${currentState.questionNumber}`;
   let response = await fetch(url);
 
@@ -59,11 +59,11 @@ export async function getTechQuestions(topic: string): Promise<void> {
     currentState.questions[currentState.currentQuestionIndex],
     currentState
   );
-}
+};
 
-export async function getInformaticsQuestions(
+export const getInformaticsQuestions = async (
   difficulty: string
-): Promise<void> {
+): Promise<void> => {
   let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=18&difficulty=${difficulty}`;
   let response = await fetch(url);
 
@@ -78,9 +78,11 @@ export async function getInformaticsQuestions(
     currentState.questions[currentState.currentQuestionIndex],
     currentState
   );
-}
+};
 
-export async function getGeneralQuestions(difficulty: string): Promise<void> {
+export const getGeneralQuestions = async (
+  difficulty: string
+): Promise<void> => {
   let url = `https://opentdb.com/api.php?amount=${currentState.questionNumber}&category=9&difficulty=${difficulty}`;
   let response = await fetch(url);
 
@@ -95,7 +97,7 @@ export async function getGeneralQuestions(difficulty: string): Promise<void> {
     currentState.questions[currentState.currentQuestionIndex],
     currentState
   );
-}
+};
 
 const startGame: () => void = () => {
   removeEventListeners();

@@ -66,12 +66,12 @@ const emoji: Emoji = {
   3: ['💔', '😫', '😞', '😣', '😥', '😔', '😟', '😧', '🤧'],
 };
 
-export function getRandomEmoji(key: number): string {
+export const getRandomEmoji = (key: number): string => {
   const emojiArray = emoji[key];
   const randomIndex = Math.floor(Math.random() * emojiArray.length);
 
   return emojiArray[randomIndex];
-}
+};
 
 export const pickFinalEmoji = (result: number): string => {
   if (result < 21) {

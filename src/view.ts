@@ -168,7 +168,7 @@ export const renderPickTechTopicStage = (): void => {
   containerTechButtons.append(htmlBtnEl, javascriptBtnEl);
 };
 
-export function removeEventListeners(): void {
+export const removeEventListeners = (): void => {
   generalBtnEl.addEventListener('click', (e) => {
     handleDifficultyClick(currentState);
   });
@@ -189,7 +189,7 @@ export function removeEventListeners(): void {
   });
   htmlBtnEl.removeEventListener('click', handleQuestionsHtmlClick);
   javascriptBtnEl.removeEventListener('click', handleQuestionsJavascriptClick);
-}
+};
 
 export const pickDifficulty = (state: State): void => {
   renderPickDifficultyStage();
@@ -261,10 +261,10 @@ const renderQuestion = (question: any, state: State) => {
   }
 };
 
-export function renderGeneralQuestion(
+export const renderGeneralQuestion = (
   question: QuestionGeneral,
   state: State
-): void {
+): void => {
   localStorage.setItem('question', JSON.stringify(question));
   localStorage.setItem('state', JSON.stringify(state));
 
@@ -282,7 +282,7 @@ export function renderGeneralQuestion(
     const answerEl = createElement('button', 'button button--answer');
     answerEl.innerHTML = answer;
 
-    answerEl.addEventListener('click', function () {
+    answerEl.addEventListener('click', () => {
       let isCorrect = answer === correctAnswer;
 
       isCorrect && state.score++;
@@ -302,9 +302,12 @@ export function renderGeneralQuestion(
 
     answersContainerEl.append(answerEl);
   });
-}
+};
 
-export function renderTechQuestion(question: QuestionTech, state: State): void {
+export const renderTechQuestion = (
+  question: QuestionTech,
+  state: State
+): void => {
   localStorage.removeItem('generalQuestion');
   localStorage.removeItem('generalState');
 
@@ -322,7 +325,7 @@ export function renderTechQuestion(question: QuestionTech, state: State): void {
       answerEl.textContent = answers[key];
       answerEl.classList.add('button', 'button--answer');
 
-      answerEl.addEventListener('click', function () {
+      answerEl.addEventListener('click', () => {
         let isCorrect = correctAnswers[key + '_correct'] === 'true';
 
         isCorrect && state.score++;
@@ -343,4 +346,4 @@ export function renderTechQuestion(question: QuestionTech, state: State): void {
       answersContainerEl.append(answerEl);
     }
   });
-}
+};
