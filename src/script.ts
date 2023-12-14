@@ -9,7 +9,6 @@ import {
   techBtnEl,
   informaticsBtnEl,
   playAgainBtnEl,
-  gameMessageEl,
   gameScoreEl,
   questionEl,
   answersContainerEl,
