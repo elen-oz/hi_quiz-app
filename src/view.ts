@@ -306,9 +306,6 @@ export const renderTechQuestion = (
   question: QuestionTech,
   state: State
 ): void => {
-  localStorage.removeItem('generalQuestion');
-  localStorage.removeItem('generalState');
-
   localStorage.setItem('question', JSON.stringify(question));
   localStorage.setItem('state', JSON.stringify(state));
 
