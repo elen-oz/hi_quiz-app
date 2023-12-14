@@ -9,7 +9,7 @@ import {
   handleQuestionSelection,
 } from './utils';
 
-import { currentState } from './script';
+import { currentState } from './main';
 
 interface QuestionGeneral {
   category: string;

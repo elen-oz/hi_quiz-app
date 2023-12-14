@@ -3,7 +3,7 @@ import {
   getTechQuestions,
   getGeneralQuestions,
   getInformaticsQuestions,
-} from './script';
+} from './main';
 
 interface GameState {
   start: string;
