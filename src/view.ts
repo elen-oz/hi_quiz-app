@@ -252,8 +252,6 @@ const renderQuestion = (question: any, state: State) => {
 
   questionEl.classList.remove('hide');
 
-  console.log('state.gameType', state.gameType);
-
   if (state.gameType === 'tech') {
     questionEl.textContent = question.question;
   } else {
