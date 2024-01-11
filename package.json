@@ -1,0 +1,18 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "description": "Quiz app: Test your knowledge.",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "Elena Ozerova",
+  "license": "ISC",
+  "devDependencies": {
+    "cssnano": "^6.0.1",
+    "parcel": "^2.10.3",
+    "postcss": "^8.4.32",
+    "typescript": "^5.3.3"
+  }
+}
